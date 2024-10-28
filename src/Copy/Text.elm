@@ -21,7 +21,7 @@ t key =
         TransDimensionDescription ->
             -- Note this is also in content/about/main.md
             -- If they should remain in sync, we should remove from there
-            "The Trans Dimension is an online community hub connecting trans communities in London. We collate news, events and services by and for trans people."
+            "The Trans Dimension is an online community hub connecting trans communities in London and Manchester. We collate news, events and services by and for trans people."
 
         SiteLogoSrc ->
             canonicalUrl ++ "images/logos/tdd_logo_with_strapline_on_darkBlue.png"
