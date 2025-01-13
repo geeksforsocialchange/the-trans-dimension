@@ -54,7 +54,7 @@ viewInfo localModel { partner, events } =
                     ]
 
             Nothing ->
-                div [ css [ mapContainerStyle ] ] [ text "" ]
+                text ""
         ]
 
 
@@ -152,7 +152,7 @@ viewContactDetails maybeUrl maybeContactDetails maybeInstagramUrl =
             , case maybeInstagramUrl of
                 Just url ->
                     p [ css [ contactItemStyle ] ] [ a [ href url, target "_blank", css [ linkStyle ] ] [ text (Copy.Text.urlToDisplay url) ] ]
-                
+
                 Nothing ->
                     text ""
             ]
@@ -174,15 +174,25 @@ viewAddress maybeAddress =
         Nothing ->
             p [ css [ contactItemStyle ] ] [ text (t PartnerAddressEmptyText) ]
 
+
 viewPartnerDescription : String -> String -> String -> List (Html msg)
 viewPartnerDescription partnerName partnerDescription partnerSummary =
-    case (partnerDescription, partnerSummary) of
-        ("", "") -> [ div [ ] (Theme.TransMarkdown.markdownToHtml (t (PartnerDescriptionEmptyText partnerName))) ]
-        ( "", s) -> [ div [ ] (Theme.TransMarkdown.markdownToHtml s) ]
-        (d, "")  -> [ div [ ] (Theme.TransMarkdown.markdownToHtml d) ]
-        (d, s)   -> [ div [ ] (Theme.TransMarkdown.markdownToHtml s)
-                    , div [ ] (Theme.TransMarkdown.markdownToHtml d)
-                    ]
+    case ( partnerDescription, partnerSummary ) of
+        ( "", "" ) ->
+            [ div [] (Theme.TransMarkdown.markdownToHtml (t (PartnerDescriptionEmptyText partnerName))) ]
+
+        ( "", s ) ->
+            [ div [] (Theme.TransMarkdown.markdownToHtml s) ]
+
+        ( d, "" ) ->
+            [ div [] (Theme.TransMarkdown.markdownToHtml d) ]
+
+        ( d, s ) ->
+            [ div [] (Theme.TransMarkdown.markdownToHtml s)
+            , div [] (Theme.TransMarkdown.markdownToHtml d)
+            ]
+
+
 
 ---------
 -- Styles
