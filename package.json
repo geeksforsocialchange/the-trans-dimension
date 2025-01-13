@@ -6,9 +6,12 @@
     "start": "elm-constants && elm-pages dev --port 3030",
     "build": "elm-constants && elm-pages build",
     "format": "elm-format src tests",
-    "test": "elm-constants && elm-test-rs"
+    "test": "elm-constants && elm-test-rs",
+    "cucumber": "cucumber-js"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^11.2.0",
+    "@playwright/test": "^1.49.1",
     "elm-codegen": "^0.5.3",
     "elm-constants": "^1.0.0",
     "elm-optimize-level-2": "^0.3.5",
