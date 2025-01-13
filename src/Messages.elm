@@ -15,6 +15,7 @@ type Msg
       -- Shared
     | SharedMsg SharedMsg
     | SetRegion Int
+    | UrlChanged String
 
 
 type SharedMsg

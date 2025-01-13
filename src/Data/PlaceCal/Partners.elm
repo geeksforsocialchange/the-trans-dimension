@@ -1,4 +1,4 @@
-module Data.PlaceCal.Partners exposing (Address, Contact, Partner, ServiceArea, filterFromQueryString, partnerFromSlug, partnerNamesFromIds, partnersData, partnersFromRegionId, partnershipTagIdList, partnershipTagList)
+module Data.PlaceCal.Partners exposing (Address, Contact, Partner, ServiceArea, filterFromQueryString, partnerFromSlug, partnerNamesFromIds, partnersData, partnersFromRegionId, partnershipTagIdList, partnershipTagList, PartnershipTag, getTagInfoById)
 
 import BackendTask
 import BackendTask.Custom
@@ -122,8 +122,7 @@ partnershipTagName tagInfo =
 filterFromQueryString : String -> Maybe Int
 filterFromQueryString queryString =
     partnershipTagList
-        |> List.map (\tagInfo -> { tagInfo | name = String.toLower tagInfo.name })
-        |> List.filter (\tagInfo -> tagInfo.name == String.toLower queryString)
+        |> List.filter (\tagInfo -> String.toLower tagInfo.name == String.toLower queryString)
         |> Maybe.withDefault List.head Nothing
         |> maybeMatchTagId
 
@@ -136,6 +135,12 @@ maybeMatchTagId maybeTagInfo =
 
         Nothing ->
             Nothing
+
+getTagInfoById : Int -> Maybe PartnershipTag
+getTagInfoById tagId =
+    partnershipTagList
+        |> List.filter (\tagInfo -> tagInfo.id == tagId)
+        |> List.head
 
 
 partnersData : BackendTask.BackendTask { fatal : FatalError.FatalError, recoverable : BackendTask.Custom.Error } AllPartnersResponse
