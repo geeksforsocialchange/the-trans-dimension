@@ -12,7 +12,7 @@ import Helpers.TransRoutes as TransRoutes exposing (Route(..))
 import Html.Styled exposing (Html, a, article, button, div, h4, li, p, section, span, text, time, ul)
 import Html.Styled.Attributes exposing (css, href)
 import Html.Styled.Events
-import Theme.Global exposing (borderTransition, colorTransition, darkBlue, introTextLargeStyle, pink, white, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Global exposing (borderTransition, colorTransition, darkBlue, introTextLargeStyle, pink, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.Paginator exposing (buttonWidthFullWidth, buttonWidthMobile, buttonWidthTablet, paginationButtonStyle)
 import Theme.RegionSelector
 import Time
@@ -192,13 +192,15 @@ eventsListStyle =
 eventsListItemStyle : Style
 eventsListItemStyle =
     batch
-        [ hover
-            [ descendants
-                [ typeSelector "a" [ color pink ]
-                , typeSelector "h4" [ color pink, borderBottomColor white ]
-                , typeSelector "span"
-                    [ firstChild [ color pink ]
-                    , lastChild [ color white ]
+        [ withMediaCanHover
+            [ hover
+                [ descendants
+                    [ typeSelector "a" [ color pink ]
+                    , typeSelector "h4" [ color pink, borderBottomColor white ]
+                    , typeSelector "span"
+                        [ firstChild [ color pink ]
+                        , lastChild [ color white ]
+                        ]
                     ]
                 ]
             ]

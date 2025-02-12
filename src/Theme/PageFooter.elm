@@ -9,7 +9,7 @@ import Helpers.TransRoutes as TransRoutes exposing (Route(..))
 import Html.Styled exposing (Html, a, button, div, footer, form, img, input, label, li, nav, p, span, text, ul)
 import Html.Styled.Attributes exposing (action, alt, attribute, css, for, href, id, method, name, placeholder, src, target, type_, value)
 import List exposing (append, concat)
-import Theme.Global exposing (colorTransition, darkBlue, darkPurple, pink, pinkButtonOnDarkBackgroundStyle, smallInlineTitleStyle, textInputStyle, white, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Global exposing (colorTransition, darkBlue, darkPurple, pink, pinkButtonOnDarkBackgroundStyle, smallInlineTitleStyle, textInputStyle, white, withMediaCanHover, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.Logo
 import Time
 
@@ -337,7 +337,7 @@ navListItemLinkStyle =
         [ color darkBlue
         , textDecoration none
         , transition [ Css.Transitions.color 300 ]
-        , hover [ color white ]
+        , withMediaCanHover [ hover [ color white ] ]
         ]
 
 
@@ -380,7 +380,7 @@ logoGIStyle =
         , height (px 48)
         , backgroundImage (url "/images/logos/GI_pink.svg")
         , backgroundSize (px 138.184)
-        , hover [ backgroundImage (url "/images/logos/GI_pink_rollover.svg") ]
+        , withMediaCanHover [ hover [ backgroundImage (url "/images/logos/GI_pink_rollover.svg") ] ]
         , focus [ backgroundImage (url "/images/logos/GI_white.svg") ]
         , active [ backgroundImage (url "/images/logos/GI_white.svg") ]
         , alignSelf center
@@ -468,7 +468,7 @@ creditLinkStyle : Style
 creditLinkStyle =
     batch
         [ color darkBlue
-        , hover [ color darkPurple ]
+        , withMediaCanHover [ hover [ color darkPurple ] ]
         , focus [ color white ]
         , active [ color white ]
         , transition [ colorTransition ]

@@ -1,8 +1,7 @@
-module Shared exposing (Data, Model, Msg, template)
+port module Shared exposing (Data, Model, Msg, template)
 
 import BackendTask exposing (BackendTask)
 import BackendTask.Time
-import Browser.Navigation
 import Data.PlaceCal.Articles
 import Data.PlaceCal.Events
 import Data.PlaceCal.Partners
@@ -103,7 +102,7 @@ filterFromPath maybePagePath =
 filterFromQueryParams : String -> String
 filterFromQueryParams queryParams =
     Pages.PageUrl.parseQueryParams queryParams
-        |> Dict.get "filter"
+        |> Dict.get "region"
         |> Maybe.withDefault []
         |> List.head
         |> Maybe.withDefault ""
@@ -112,8 +111,51 @@ filterFromQueryParams queryParams =
 update : Msg -> Model -> ( Model, Effect Msg )
 update msg model =
     case msg of
-        OnPageChange _ ->
-            ( { model | showMobileMenu = False }, Effect.none )
+        OnPageChange pagePath ->
+            let
+                route =
+                    Route.segmentsToRoute pagePath.path
+
+                baseUpdate =
+                    ( { model | showMobileMenu = False }, Effect.none )
+            in
+            -- only update the region filter in URL if the route is Events, Index or Partners
+            case route of
+                Just Route.Events ->
+                    baseUpdate
+                        |> updateRegionFilter model.filterParam
+
+                Just Route.Index ->
+                    baseUpdate
+                        |> updateRegionFilter model.filterParam
+
+                Just Route.Partners ->
+                    baseUpdate
+                        |> updateRegionFilter model.filterParam
+
+                Just (Route.Events__Event_ _) ->
+                    baseUpdate
+
+                Just Route.News ->
+                    baseUpdate
+
+                Just (Route.News__NewsItem_ _) ->
+                    baseUpdate
+
+                Just (Route.Partners__Partner_ _) ->
+                    baseUpdate
+
+                Just Route.About ->
+                    baseUpdate
+
+                Just Route.JoinUs ->
+                    baseUpdate
+
+                Just Route.Privacy ->
+                    baseUpdate
+
+                Nothing ->
+                    baseUpdate
 
         -- Header
         ToggleMenu ->
@@ -125,12 +167,52 @@ update msg model =
 
         -- Update region filter
         SetRegion tagId ->
-            ( { model | filterParam = Just tagId }, Effect.none )
+            updateRegionFilter (Just tagId) ( model, Effect.none )
+
+        UrlChanged url ->
+            let
+                queryParamsFromUrl =
+                    case String.split "?" url of
+                        [ _, queryRegion ] ->
+                            queryRegion
+
+                        _ ->
+                            ""
+
+                maybeRegionId =
+                    Data.PlaceCal.Partners.filterFromQueryString (filterFromQueryParams queryParamsFromUrl)
+            in
+            ( { model | filterParam = maybeRegionId }, Effect.none )
+
+
+updateRegionFilter : Maybe Int -> ( Model, Effect Msg ) -> ( Model, Effect Msg )
+updateRegionFilter maybeRegionId ( model, effect ) =
+    let
+        newQuery =
+            regionFilterQuery { model | filterParam = maybeRegionId }
+    in
+    ( model, Effect.batch [ effect, Effect.fromCmd <| requestUrlChange newQuery ] )
+
+
+regionFilterQuery : Model -> String
+regionFilterQuery model =
+    let
+        selectedRegionName =
+            model.filterParam
+                |> Maybe.andThen Data.PlaceCal.Partners.getTagInfoById
+                |> Maybe.map .name
+    in
+    case selectedRegionName of
+        Just regionName ->
+            "?region=" ++ String.toLower regionName
+
+        Nothing ->
+            ""
 
 
 subscriptions : UrlPath -> Model -> Sub Msg
 subscriptions _ _ =
-    Sub.none
+    onUrlChange UrlChanged
 
 
 data : BackendTask FatalError Data
@@ -174,3 +256,16 @@ view sharedData page model toMsg pageView =
         ]
     , title = pageView.title
     }
+
+
+
+-------------
+-- Ports
+-------------
+{- elm-pages does not offer a way to listen to URL changes yet, so we use ports as a workaround for now - -}
+
+
+port onUrlChange : (String -> msg) -> Sub msg
+
+
+port requestUrlChange : String -> Cmd msg

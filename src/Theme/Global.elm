@@ -1,9 +1,9 @@
-module Theme.Global exposing (backgroundColorTransition, borderTransition, buttonFloatingWrapperStyle, colorTransition, containerPage, contentContainerStyle, contentWrapperStyle, darkBlue, darkBlueBackgroundStyle, darkBlueButtonStyle, darkBlueRgbColor, darkPurple, globalStyles, hrStyle, introTextLargeStyle, introTextSmallStyle, linkStyle, mapImage, mapImageMulti, maxMobile, maxTabletPortrait, normalFirstParagraphStyle, pink, pinkBackgroundStyle, pinkButtonOnDarkBackgroundStyle, pinkButtonOnLightBackgroundStyle, pinkRgbColor, purple, screenReaderOnly, smallFloatingTitleStyle, smallInlineTitleStyle, textBoxInvisibleStyle, textBoxPinkStyle, textInputErrorStyle, textInputStyle, viewBackButton, viewCheckbox, white, whiteButtonStyle, withMediaMediumDesktopUp, withMediaMobileOnly, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+module Theme.Global exposing (backgroundColorTransition, borderTransition, buttonFloatingWrapperStyle, colorTransition, containerPage, contentContainerStyle, contentWrapperStyle, darkBlue, darkBlueBackgroundStyle, darkBlueButtonStyle, darkBlueRgbColor, darkPurple, globalStyles, hrStyle, introTextLargeStyle, introTextSmallStyle, linkStyle, mapImage, mapImageMulti, maxMobile, maxTabletPortrait, normalFirstParagraphStyle, pink, pinkBackgroundStyle, pinkButtonOnDarkBackgroundStyle, pinkButtonOnLightBackgroundStyle, pinkRgbColor, purple, screenReaderOnly, smallFloatingTitleStyle, smallInlineTitleStyle, textBoxInvisibleStyle, textBoxPinkStyle, textInputErrorStyle, textInputStyle, viewBackButton, viewCheckbox, white, whiteButtonStyle, withMediaCanHover, withMediaMediumDesktopUp, withMediaMobileOnly, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 
 import Color
 import Css exposing (Color, Style, absolute, active, alignItems, auto, backgroundColor, backgroundImage, backgroundRepeat, backgroundSize, batch, block, borderBottomColor, borderBottomStyle, borderBottomWidth, borderBox, borderColor, borderRadius, borderStyle, borderWidth, bottom, boxSizing, calc, center, color, cursor, display, displayFlex, em, firstChild, fitContent, flexDirection, focus, fontFamilies, fontSize, fontStyle, fontWeight, height, hex, hidden, hover, inlineBlock, int, italic, justifyContent, left, letterSpacing, lineHeight, margin, margin2, margin4, marginBlockEnd, marginBlockStart, marginTop, maxContent, maxWidth, minus, none, outline, overflow, padding, padding2, padding4, paddingBottom, paddingLeft, paddingRight, pct, pointer, position, property, px, relative, rem, repeat, row, sansSerif, solid, textAlign, textDecoration, textTransform, top, uppercase, url, width, zero)
 import Css.Global exposing (adjacentSiblings, descendants, global, typeSelector)
-import Css.Media as Media exposing (only, screen, withMedia)
+import Css.Media as Media exposing (fine, only, screen, withMedia)
 import Css.Transitions exposing (Transition, linear, transition)
 import Html.Styled exposing (Html, a, div, img, input, label, p, text)
 import Html.Styled.Attributes exposing (alt, css, for, href, id, src, type_)
@@ -105,6 +105,11 @@ withMediaMediumDesktopUp =
     withMedia [ only screen [ Media.minWidth (px maxSmallDesktop) ] ]
 
 
+withMediaCanHover : List Style -> Style
+withMediaCanHover =
+    withMedia [ only screen [ Media.hover Media.canHover, Media.pointer fine ] ]
+
+
 
 -- Transitions
 
@@ -157,7 +162,7 @@ whiteButtonStyle =
         , backgroundColor white
         , color darkBlue
         , borderColor white
-        , hover [ backgroundColor purple, color white ]
+        , withMediaCanHover [ hover [ backgroundColor purple, color white ] ]
         , active [ backgroundColor darkBlue, color white ]
         , focus [ backgroundColor darkBlue, color white ]
         ]
@@ -170,7 +175,7 @@ darkBlueButtonStyle =
         , backgroundColor darkBlue
         , color white
         , borderColor pink
-        , hover [ backgroundColor purple, color white, borderColor white ]
+        , withMediaCanHover [ hover [ backgroundColor purple, color white, borderColor white ] ]
         , active [ backgroundColor pink, color darkBlue, borderColor white ]
         , focus [ backgroundColor pink, color darkBlue, borderColor white ]
         ]
@@ -183,7 +188,7 @@ pinkButtonOnDarkBackgroundStyle =
         , backgroundColor pink
         , color darkBlue
         , borderColor pink
-        , hover [ backgroundColor lightPink, borderColor lightPink ]
+        , withMediaCanHover [ hover [ backgroundColor lightPink, borderColor lightPink ] ]
         , active [ backgroundColor white, borderColor white ]
         , focus [ backgroundColor white, borderColor white ]
         ]
@@ -196,7 +201,7 @@ pinkButtonOnLightBackgroundStyle =
         , backgroundColor pink
         , color darkBlue
         , borderColor pink
-        , hover [ backgroundColor purple, borderColor white, color white ]
+        , withMediaCanHover [ hover [ backgroundColor purple, borderColor white, color white ] ]
         , active [ backgroundColor darkBlue, borderColor white, color white ]
         , focus [ backgroundColor darkBlue, borderColor white, color white ]
         ]
@@ -390,7 +395,7 @@ linkStyle =
         , borderBottomStyle solid
         , borderBottomWidth (px 1)
         , textDecoration none
-        , hover [ color pink, borderBottomColor white ]
+        , withMediaCanHover [ hover [ color pink, borderBottomColor white ] ]
         , transition [ borderTransition, colorTransition ]
         ]
 

@@ -6,6 +6,7 @@ import Css.Transitions exposing (transition)
 import Html.Styled exposing (Html)
 import Svg.Styled exposing (defs, g, path, svg, text, title)
 import Svg.Styled.Attributes exposing (clipRule, d, fill, height, id, transform, viewBox, width, xmlSpace)
+import Theme.Global exposing (withMediaCanHover)
 
 
 view : Html msg
@@ -96,7 +97,9 @@ logoParentStyle =
             [ typeSelector "svg"
                 [ batch
                     [ property "filter" "invert(59%) sepia(14%) saturate(1738%) hue-rotate(292deg) brightness(101%) contrast(105%)"
-                    , hover [ property "filter" "invert(89%) sepia(6%) saturate(5137%) hue-rotate(293deg) brightness(104%) contrast(133%)" ]
+                    , withMediaCanHover
+                        [ hover [ property "filter" "invert(89%) sepia(6%) saturate(5137%) hue-rotate(293deg) brightness(104%) contrast(133%)" ]
+                        ]
                     ]
                 , active [ property "filter" "invert(100%)" ]
                 , focus [ property "filter" "invert(100%)" ]

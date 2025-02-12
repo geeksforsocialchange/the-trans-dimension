@@ -12,7 +12,7 @@ import Html.Styled exposing (Html, button, div, img, li, text, ul)
 import Html.Styled.Attributes exposing (css, id, src)
 import Html.Styled.Events
 import Task exposing (Task)
-import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, pink, white, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, pink, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Time
 
 
@@ -292,11 +292,13 @@ paginationButtonStyle =
         , borderRadius (rem 0.3)
         , textAlign center
         , cursor pointer
-        , hover
-            [ backgroundColor darkPurple
-            , color white
-            , borderColor white
-            , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
+        , withMediaCanHover
+            [ hover
+                [ backgroundColor darkPurple
+                , color white
+                , borderColor white
+                , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
+                ]
             ]
         , focus
             [ backgroundColor white

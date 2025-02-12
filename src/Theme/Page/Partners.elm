@@ -9,7 +9,7 @@ import Data.PlaceCal.Partners
 import Helpers.TransRoutes as TransRoutes exposing (Route(..))
 import Html.Styled exposing (Html, a, div, h3, h4, li, p, section, span, styled, text, ul)
 import Html.Styled.Attributes exposing (css, href)
-import Theme.Global as Theme exposing (darkPurple, pink, purple, white, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Global as Theme exposing (darkPurple, pink, purple, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.RegionSelector
 
 
@@ -188,11 +188,13 @@ listStyle =
 listItemStyle : Style
 listItemStyle =
     batch
-        [ hover
-            [ descendants
-                [ typeSelector "a" [ color pink ]
-                , typeSelector "h4" [ color pink ]
-                , typeSelector "div" [ borderBottomColor white ]
+        [ withMediaCanHover
+            [ hover
+                [ descendants
+                    [ typeSelector "a" [ color pink ]
+                    , typeSelector "h4" [ color pink ]
+                    , typeSelector "div" [ borderBottomColor white ]
+                    ]
                 ]
             ]
         , withMediaTabletLandscapeUp [ width (calc (pct 50) minus (rem 2)) ]

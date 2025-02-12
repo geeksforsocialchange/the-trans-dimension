@@ -9,7 +9,7 @@ import Data.PlaceCal.Partners
 import Html.Styled exposing (Html, button, div, li, text, ul)
 import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events
-import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, white, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 
 
 type Msg
@@ -123,11 +123,13 @@ regionSelectorButtonStyle =
         , borderRadius (rem 0.3)
         , textAlign center
         , cursor pointer
-        , hover
-            [ backgroundColor darkPurple
-            , color white
-            , borderColor white
-            , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
+        , withMediaCanHover
+            [ hover
+                [ backgroundColor darkPurple
+                , color white
+                , borderColor white
+                , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
+                ]
             ]
         , focus
             [ backgroundColor white

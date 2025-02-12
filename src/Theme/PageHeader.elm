@@ -10,7 +10,7 @@ import Html.Styled.Attributes exposing (attribute, css, href)
 import Html.Styled.Events exposing (onClick)
 import Messages exposing (Msg(..))
 import Route exposing (Route)
-import Theme.Global exposing (darkBlue, pink, screenReaderOnly, white, withMediaTabletPortraitUp)
+import Theme.Global exposing (darkBlue, pink, screenReaderOnly, white, withMediaCanHover, withMediaTabletPortraitUp)
 import Theme.Logo
 import UrlPath exposing (UrlPath)
 
@@ -254,9 +254,9 @@ navigationLinkStyle =
         , borderBottomWidth (rem 0.2)
         , borderBottomStyle solid
         , borderBottomColor pink
-        , hover [ color white ]
+        , withMediaCanHover [ hover [ color white ] ]
         , transition [ Css.Transitions.border 300, Css.Transitions.color 300 ]
-        , withMediaTabletPortraitUp [ hover [ borderBottomColor darkBlue ] ]
+        , withMediaTabletPortraitUp [ withMediaCanHover [ hover [ borderBottomColor darkBlue ] ] ]
         ]
 
 
@@ -282,7 +282,7 @@ navigationLinkCurrentCategoryStyle =
         , color darkBlue
         , textDecoration none
         , display block
-        , hover [ color white ]
+        , withMediaCanHover [ hover [ color white ] ]
         , transition [ Css.Transitions.border 300, Css.Transitions.color 300 ]
         , withMediaTabletPortraitUp
             [ borderBottomColor darkBlue
@@ -309,7 +309,7 @@ askButtonStyle =
         [ backgroundColor white
         , borderBottomStyle none
         , padding (rem 1)
-        , hover [ color pink ]
+        , withMediaCanHover [ hover [ color pink ] ]
         , withMediaTabletPortraitUp
             [ padding4 (rem 0.375) (rem 1.25) (rem 0.5) (rem 1.25)
             , borderRadius (rem 0.3)
