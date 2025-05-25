@@ -9,7 +9,8 @@ import Data.PlaceCal.Partners
 import Html.Styled exposing (Html, button, div, li, text, ul)
 import Html.Styled.Attributes exposing (css)
 import Html.Styled.Events
-import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorAccentDark, colorPrimary, colorWhite)
+import Theme.GlobalLayout exposing (backgroundColorTransition, borderTransition, colorTransition, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 
 
 type Msg
@@ -117,30 +118,30 @@ regionSelectorButtonStyle : Style
 regionSelectorButtonStyle =
     batch
         [ borderStyle solid
-        , borderColor white
+        , borderColor colorWhite
         , borderWidth (px 2)
-        , color white
+        , color colorWhite
         , borderRadius (rem 0.3)
         , textAlign center
         , cursor pointer
         , withMediaCanHover
             [ hover
-                [ backgroundColor darkPurple
-                , color white
-                , borderColor white
+                [ backgroundColor colorAccentDark
+                , color colorWhite
+                , borderColor colorWhite
                 , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
                 ]
             ]
         , focus
-            [ backgroundColor white
-            , color darkBlue
-            , borderColor white
+            [ backgroundColor colorWhite
+            , color colorPrimary
+            , borderColor colorWhite
             , descendants [ typeSelector "img" [ property "filter" "invert(0)" ] ]
             ]
         , active
-            [ backgroundColor white
-            , color darkBlue
-            , borderColor white
+            [ backgroundColor colorWhite
+            , color colorPrimary
+            , borderColor colorWhite
             , descendants [ typeSelector "img" [ property "filter" "invert(0)" ] ]
             ]
         , transition [ colorTransition, borderTransition, backgroundColorTransition ]
@@ -188,7 +189,7 @@ regionSelectorButtonListItemButtonStyle =
         , fontWeight (int 600)
         , padding4 (rem 0.2) (rem 0.2) (rem 0.3) (rem 0.2)
         , width (px buttonWidthMobile)
-        , backgroundColor darkBlue
+        , backgroundColor colorPrimary
         , withMediaTabletLandscapeUp [ width (px buttonWidthFullWidth), fontSize (rem 1.2) ]
         , withMediaTabletPortraitUp [ width (px buttonWidthTablet), fontSize (rem 1) ]
         ]
@@ -202,8 +203,8 @@ regionSelectorButtonListItemButtonActiveStyle =
         , fontWeight (int 600)
         , padding4 (rem 0.2) (rem 0.2) (rem 0.3) (rem 0.2)
         , width (px buttonWidthMobile)
-        , backgroundColor white
-        , color darkBlue
+        , backgroundColor colorWhite
+        , color colorPrimary
         , withMediaTabletLandscapeUp [ width (px buttonWidthFullWidth), fontSize (rem 1.2) ]
         , withMediaTabletPortraitUp [ width (px buttonWidthTablet), fontSize (rem 1) ]
         ]

@@ -1,6 +1,6 @@
 ---
 title: "Our Accessibility Process"
-subtitle: "As a trans and disabled led project, we have worked to put accessibility at the heart of everything we do."
+subtitle: "We have worked to put accessibility at the heart of everything we do."
 ---
 
 As an event listings site, we know how challenging it can sometimes be to find detailed accessibility information about venues. While some spaces offer in-depth information on their websites about quantity and steepness of stairs, lighting styles used in performances, accessibility of toilets, and anything else you could possibly need to know, so many more offer little to no information at all.
@@ -11,4 +11,4 @@ We also know that for many people, trying out new events or groups can sometimes
 
 We have tried to design this website to be as usable as possible. We aim to conform to [WCAG 2.1](https://www.w3.org/WAI/WCAG21/quickref) to level AA.
 
-If you think that there is anything we could do to improve the site, please do [drop us a message](mailto:info@transdimension.uk).
+If you think that there is anything we could do to improve the site, please do [drop us a message](mailto: [Your email address]).

@@ -12,8 +12,9 @@ import Http
 import Json.Encode
 import RouteBuilder
 import Shared
+import Skin.Global exposing (colorSecondary, colorWhite, secondaryButtonOnDarkBackgroundStyle, textInputErrorStyle, textInputStyle, viewCheckbox)
 import Task
-import Theme.Global exposing (pink, pinkButtonOnDarkBackgroundStyle, textInputErrorStyle, textInputStyle, viewCheckbox, white, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.GlobalLayout exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 
 
 type alias Model =
@@ -523,7 +524,7 @@ textAreaStyle =
         , height (px 140)
         , margin2 (rem 0.5) (rem 0)
         , padding2 (rem 1) (rem 1.5)
-        , pseudoElement "placeholder" [ color white ]
+        , pseudoElement "placeholder" [ color colorWhite ]
         , width (pct 100)
         , withMediaTabletPortraitUp [ height (px 100) ]
         ]
@@ -553,7 +554,7 @@ buttonWrapperStyle =
 formHelperStyle : Style
 formHelperStyle =
     batch
-        [ color pink
+        [ color colorSecondary
         , fontSize (rem 0.875)
         , fontWeight (int 600)
         , textAlign center
@@ -567,7 +568,7 @@ formHelperStyle =
 formButtonStyle : Style
 formButtonStyle =
     batch
-        [ pinkButtonOnDarkBackgroundStyle
+        [ secondaryButtonOnDarkBackgroundStyle
         , padding2 (rem 0.25) (rem 4)
         , withMediaTabletPortraitUp [ marginTop (rem 1) ]
         ]

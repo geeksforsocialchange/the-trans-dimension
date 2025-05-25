@@ -72,7 +72,7 @@ data =
                     |> Theme.TransMarkdown.fromResult
                 )
         )
-        "content/privacy.md"
+        "theme/content/privacy.md"
         |> BackendTask.allowFatal
 
 

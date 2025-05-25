@@ -8,7 +8,8 @@ import Markdown.Block
 import Markdown.Html
 import Markdown.Parser
 import Markdown.Renderer
-import Theme.Global exposing (linkStyle, pink, withMediaSmallDesktopUp, withMediaTabletLandscapeUp)
+import Skin.Global exposing (colorSecondary, linkStyle)
+import Theme.GlobalLayout exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp)
 
 
 fromResult : Result String value -> Json.Decode.Decoder value
@@ -258,7 +259,7 @@ headerStyle =
     batch
         [ marginBlockStart (em 1)
         , marginBlockEnd (em 1)
-        , color pink
+        , color colorSecondary
         , lineHeight (em 1.2)
         ]
 
@@ -319,7 +320,7 @@ ulLiStyle =
             ]
         , before
             [ property "content" "\"\\25A0\""
-            , color pink
+            , color colorSecondary
             , fontSize (em 1.5)
             , position absolute
             , left (rem 0)

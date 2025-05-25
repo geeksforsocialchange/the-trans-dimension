@@ -111,7 +111,7 @@ view app _ =
     { title = t (PageMetaTitle event.name)
     , body =
         [ Theme.PageTemplate.view
-            { headerType = Just "pink"
+            { headerType = Just "secondary"
             , title = t EventsTitle
             , bigText = { text = event.name, node = "h3" }
             , smallText = Nothing

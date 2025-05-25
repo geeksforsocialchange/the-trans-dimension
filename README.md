@@ -1,13 +1,32 @@
-# The Trans Dimension
+# PlaceCal template
 
 ## A [PlaceCal](https://placecal.org/) community site
 
-Front-end for [The Trans Dimension](http://transdimension.uk/), an online community hub which will connect trans communities across the UK by collating news, events and services by and for trans people in one easy-to-reach place. A collaboration between [Gendered Intelligence](https://genderedintelligence.co.uk/) and [Geeks for Social Change](https://gfsc.studio/).
+Front-end for a PlaceCal instance, an online community hub.
 
-Funded by the [Comic Relief Tech for Good “Build” fund](https://techforgoodhub.co.uk/build-fund-2021). Read more about the project [here](https://gfsc.studio/2021/12/14/enter-trans-dimension.html).
+-  Staging url: 
+-  Production URL:
 
--  Staging url: https://transdimension.pages.dev
--  Production URL: http://transdimension.uk/
+### To use this template
+
+#### Adding your copy and styles
+
+- [ ] Copy `.env.example` to `.env` and change `CANONICAL_URL`, `JOIN_US_FUNCTION_URL` and `PARTNERSHIP_TAG_LIST`
+- [ ] Edit `elm-pages.config.mjs` to add scripts fonts or stylesheets to you the html `<head>` of your site's template
+- [ ] Edit the markdown in `theme/content` to generate your About and Privacy information
+- [ ] Edit `theme/Copy/Text` to generate your UI & SEO text
+- [ ] Edit the reset and core css styles like fonts in `public/css`
+- [ ] Add your brand colors to `theme/Global/Skin` following guidence there
+
+#### Adding your images and logos
+Add your images, like logos and background to `public/images`
+
+- [ ] `backgrounds` should be tiling. They are sized at 800px (small screens), 1080px (medium screens), 1920px (largest screens)
+- [ ] `characters` should be `.png` are used on the frame of some text boxes. They can be objects, symbols or people - anything that helps illustrate the character of your community. There is one `primary` and 4 used only on the `about` page.
+- [ ] `icons` are the right and left arrows used for pagination of events
+- [ ] `illustrations` are a selection of `.png`s used a bit like stickers to populate the background at various screen sizes. Like characters, these should communicate your community vibe.
+- [ ] `logos` Please do not replace `_gfsc` and `_placecal` logos used in the footer and about page to help people find out who we are. You can replace the social icons (`_facebook`, `_instagram`, `_twitter`). `partnership_` and `site_` logos are yours. They all need to exist by name, but can be the same image copied if the aspect ratio & colour works well in situ.
+- [ ] `news` article images are used as placeholders for your partners' articles if they supply any in PlaceCal (TODO these may not be in use currently)
 
 # Development
 
@@ -22,6 +41,8 @@ Funded by the [Comic Relief Tech for Good “Build” fund](https://techforgoodh
 - install with `npm install`
 
 Copy `.env.example` over into `.env` and edit as appropriate! This must be done before any of the following will work as it generates `src/Constants.elm` which is used in a number of places in the code.
+
+Edit `elm-pages.config.mjs` to include the meta information for your site.
 
 ## Build
 
@@ -56,22 +77,21 @@ We're using [elm-test-rs](https://github.com/mpizenberg/elm-test-rs) to run [elm
 - `.nvmrc` contains project node version
 - `package.json` for node scripts and packages
 - `package-lock.json` for current versions of node packages
-- `public/*` contains static files to be copied direct to build
 - `app/*` contains core files required by `elm-pages`. These are boilerplate altered for this project.
-- `src/*` contains custom files. These are authoured from scratch for this project.
+- `src/*` contains custom files. These were authoured specifically for this template.
   - `src/Data/PlaceCal` contains code for fetching, caching and decoding data from PlaceCal
   - `src/Helpers/` contains utility code (e.g. for handling dates)
   - `src/Theme/` contains view code like templates and shared styling
+- `theme/*` contains stuff specific to your site
+- `public/*` contains static files to be copied direct to build like image assets and css
 - `tests/*` contains test files
 
-### Content & Pages
+### Pages
 
 - Routes in `app/Route/` automatically generate route based on file name
 - New routes can be generated via CLI
   - e.g. create a new stateless route by running `npx elm-pages run AddStaticStatelessRoute MyRouteName`
 - Page templates are in `src/Theme/Page/`
-- About and Privacy pages are generated from markdown in `content/`
-- Copy is not from a datasource (e.g. UI or SEO text) is in `src/Copy/Text.elm`
 
 ### Styling & layouts
 

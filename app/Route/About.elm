@@ -92,7 +92,7 @@ data =
                         |> Theme.TransMarkdown.fromResult
                     )
             )
-            "content/about/main.md"
+            "theme/content/about/main.md"
         )
         (BackendTask.File.bodyWithFrontmatter
             (\markdownString ->
@@ -110,7 +110,7 @@ data =
                         |> Theme.TransMarkdown.fromResult
                     )
             )
-            "content/about/accessibility.md"
+            "theme/content/about/accessibility.md"
         )
         (BackendTask.map2
             (\gi gfsc ->
@@ -134,7 +134,7 @@ data =
                             |> Theme.TransMarkdown.fromResult
                         )
                 )
-                "content/about/makers/gfsc.md"
+                "theme/content/about/makers/gfsc.md"
             )
             (BackendTask.File.bodyWithFrontmatter
                 (\markdownString ->
@@ -154,7 +154,7 @@ data =
                             |> Theme.TransMarkdown.fromResult
                         )
                 )
-                "content/about/makers/gi.md"
+                "theme/content/about/makers/partnership.md"
             )
         )
         (BackendTask.File.bodyWithFrontmatter
@@ -175,7 +175,7 @@ data =
                         |> Theme.TransMarkdown.fromResult
                     )
             )
-            "content/about/placecal.md"
+            "theme/content/about/placecal.md"
         )
         |> BackendTask.allowFatal
 

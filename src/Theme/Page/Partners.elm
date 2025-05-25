@@ -9,7 +9,8 @@ import Data.PlaceCal.Partners
 import Helpers.TransRoutes as TransRoutes exposing (Route(..))
 import Html.Styled exposing (Html, a, div, h3, h4, li, p, section, span, styled, text, ul)
 import Html.Styled.Attributes exposing (css, href)
-import Theme.Global as Theme exposing (darkPurple, pink, purple, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorAccent, colorAccentDark, colorSecondary, colorWhite, mapImageMulti)
+import Theme.GlobalLayout exposing (borderTransition, colorTransition, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.RegionSelector
 
 
@@ -80,7 +81,7 @@ viewMap partnerList =
                     }
     in
     div [ css [ featurePlaceholderStyle ] ]
-        [ Theme.mapImageMulti
+        [ mapImageMulti
             (t PartnersMapAltText)
             (List.filter allowOnlyPartnersWithLocation partnerList
                 |> List.map partnerToGeo
@@ -146,8 +147,8 @@ areaDistrictString address =
 partnerAreaTagSpan : List (Html.Styled.Attribute msg) -> List (Html msg) -> Html msg
 partnerAreaTagSpan =
     styled span
-        [ backgroundColor darkPurple
-        , color pink
+        [ backgroundColor colorAccentDark
+        , color colorSecondary
         , display inlineBlock
         , marginLeft (rem 0.5)
         , padding2 (rem 0.25) (rem 0.5)
@@ -166,7 +167,7 @@ partnerAreaTagSpan =
 partnersListTitleStyle : Style
 partnersListTitleStyle =
     batch
-        [ color white
+        [ color colorWhite
         , textTransform uppercase
         , fontSize (rem 1.2)
         , letterSpacing (px 1.9)
@@ -191,9 +192,9 @@ listItemStyle =
         [ withMediaCanHover
             [ hover
                 [ descendants
-                    [ typeSelector "a" [ color pink ]
-                    , typeSelector "h4" [ color pink ]
-                    , typeSelector "div" [ borderBottomColor white ]
+                    [ typeSelector "a" [ color colorSecondary ]
+                    , typeSelector "h4" [ color colorSecondary ]
+                    , typeSelector "div" [ borderBottomColor colorWhite ]
                     ]
                 ]
             ]
@@ -209,11 +210,11 @@ partnerTopRowStyle =
         , justifyContent spaceBetween
         , alignItems flexEnd
         , padding2 (rem 0.5) (rem 0)
-        , borderBottomColor pink
+        , borderBottomColor colorSecondary
         , borderBottomWidth (px 2)
         , borderBottomStyle solid
         , withMediaTabletLandscapeUp [ padding2 (rem 0.75) (rem 0) ]
-        , transition [ Theme.borderTransition ]
+        , transition [ borderTransition ]
         ]
 
 
@@ -231,8 +232,8 @@ partnerLink : Style
 partnerLink =
     batch
         [ textDecoration none
-        , color white
-        , transition [ Theme.colorTransition ]
+        , color colorWhite
+        , transition [ colorTransition ]
         ]
 
 
@@ -241,8 +242,8 @@ partnerNameStyle =
     batch
         [ fontSize (rem 1.2)
         , fontStyle italic
-        , color white
-        , transition [ Theme.colorTransition ]
+        , color colorWhite
+        , transition [ colorTransition ]
         , withMediaTabletPortraitUp [ fontSize (rem 1.5) ]
         ]
 
@@ -269,5 +270,5 @@ featurePlaceholderStyle =
         [ textAlign center
         , fontWeight bold
         , marginBottom (rem 2)
-        , backgroundColor purple
+        , backgroundColor colorAccent
         ]

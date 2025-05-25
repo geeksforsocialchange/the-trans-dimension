@@ -8,8 +8,6 @@ export default {
     return `
   <link rel="stylesheet" href="/style.css" />
   <meta name="generator" content="elm-pages v${context.cliVersion}" />
-  <script defer="defer" data-domain="transdimension.uk" src="https://plausible.io/js/script.outbound-links.js"></script>
-  <link rel="stylesheet" preload href="https://use.typekit.net/qwi3qrw.css" />
   `;
   },
   preloadTagForFile(file) {

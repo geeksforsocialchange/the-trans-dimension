@@ -9,7 +9,8 @@ import Helpers.TransRoutes as TransRoutes exposing (Route(..))
 import Html.Styled exposing (Html, a, button, div, footer, form, img, input, label, li, nav, p, span, text, ul)
 import Html.Styled.Attributes exposing (action, alt, attribute, css, for, href, id, method, name, placeholder, src, target, type_, value)
 import List exposing (append, concat)
-import Theme.Global exposing (colorTransition, darkBlue, darkPurple, pink, pinkButtonOnDarkBackgroundStyle, smallInlineTitleStyle, textInputStyle, white, withMediaCanHover, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorAccentDark, colorPrimary, colorSecondary, colorWhite, secondaryButtonOnDarkBackgroundStyle, smallInlineTitleStyle, textInputStyle)
+import Theme.GlobalLayout exposing (colorTransition, withMediaCanHover, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.Logo
 import Time
 
@@ -51,7 +52,7 @@ viewPageFooterLogo : Html msg
 viewPageFooterLogo =
     div [ css [ footerLogoStyle ] ]
         [ img
-            [ src "/images/logos/TDD_Logo_Footer.svg"
+            [ src "/images/logos/site_logo_footer.svg"
             , alt (t SiteTitle)
             , css [ footerLogoImageStyle ]
             ]
@@ -84,7 +85,7 @@ viewPageFooterLogos =
             [ li [ css [ logoListItemStyle ] ]
                 [ a [ href (t GeeksForSocialChangeHomeUrl), target "_blank", css [ Theme.Logo.logoParentStyle ] ] [ Theme.Logo.viewGFSC ] ]
             , li [ css [ logoListItemStyle ] ]
-                [ a [ href (t GenderedIntelligenceHomeUrl), target "_blank", css [ logoGIStyle ], attribute "aria-label" (t GenderedIntelligenceLogoTxt) ] [] ]
+                [ a [ href (t PartnerOrganisationHomeUrl), target "_blank", css [ partnershipLogoStyle ], attribute "aria-label" (t PartnerOrganisationLogoTxt) ] [] ]
             ]
         ]
 
@@ -115,7 +116,7 @@ viewPageFooterSignup =
             , input [ type_ "hidden", id "6735a", name "l", value "6735a059-52dd-4843-b76c-4d2b210462d3" ] []
             , button
                 [ type_ "submit"
-                , css [ pinkButtonOnDarkBackgroundStyle, signupButtonStyle ]
+                , css [ secondaryButtonOnDarkBackgroundStyle, signupButtonStyle ]
                 ]
                 [ text (t FooterSignupButton) ]
             ]
@@ -124,7 +125,7 @@ viewPageFooterSignup =
 
 viewPageFooterInfo : String -> List String -> Html msg
 viewPageFooterInfo title info =
-    div [ css [ pinkBlockStyle ] ]
+    div [ css [ secondaryBlockStyle ] ]
         (append
             [ p [ css [ infoParagraphStyle, fontWeight (int 700) ] ]
                 [ text title
@@ -152,7 +153,7 @@ viewPageFooterSocial =
 
 viewPageFooterCredit : Time.Posix -> String -> List { name : String, link : String, text : String } -> Html msg
 viewPageFooterCredit time creditTitle creditList =
-    div [ css [ pinkBlockStyle ] ]
+    div [ css [ secondaryBlockStyle ] ]
         [ p [ css [ infoParagraphStyle, fontWeight (int 700), marginTop (rem 0) ] ]
             [ text creditTitle ]
         , p
@@ -182,7 +183,7 @@ viewPageFooterCreditItem creditItem =
 footerStyle : Style
 footerStyle =
     batch
-        [ backgroundColor darkBlue
+        [ backgroundColor colorPrimary
         , marginTop (rem 2)
         , displayFlex
         , flexDirection column
@@ -201,14 +202,14 @@ footerTopSectionStyle =
             , justifyContent spaceBetween
             , alignItems center
             ]
-        , backgroundColor pink
+        , backgroundColor colorSecondary
         ]
 
 
 footerMiddleSectionStyle : Style
 footerMiddleSectionStyle =
     batch
-        [ backgroundColor darkBlue
+        [ backgroundColor colorPrimary
         , padding2 (rem 1) (rem 0)
         , property "display" "grid"
         , property "grid-template-columns" "1fr"
@@ -233,14 +234,14 @@ footerMiddleSectionStyle =
 footerBottomSectionStyle : Style
 footerBottomSectionStyle =
     batch
-        [ backgroundColor pink ]
+        [ backgroundColor colorSecondary ]
 
 
 footerLogoStyle : Style
 footerLogoStyle =
     batch
         [ padding (rem 1)
-        , backgroundColor pink
+        , backgroundColor colorSecondary
         , textAlign center
         ]
 
@@ -259,7 +260,7 @@ footerLogoImageStyle =
 createdByStyle : Style
 createdByStyle =
     batch
-        [ color pink
+        [ color colorSecondary
         , padding (rem 1)
         , boxSizing borderBox
         , withMediaSmallDesktopUp
@@ -276,17 +277,17 @@ createdByStyle =
 socialStyle : Style
 socialStyle =
     batch
-        [ color pink
+        [ color colorSecondary
         , padding (rem 1)
         , boxSizing borderBox
         ]
 
 
-pinkBlockStyle : Style
-pinkBlockStyle =
+secondaryBlockStyle : Style
+secondaryBlockStyle =
     batch
-        [ color darkBlue
-        , backgroundColor pink
+        [ color colorPrimary
+        , backgroundColor colorSecondary
         , padding (rem 1)
         , boxSizing borderBox
         ]
@@ -296,7 +297,7 @@ subheadStyle : Style
 subheadStyle =
     batch
         [ smallInlineTitleStyle
-        , color white
+        , color colorWhite
         , display block
         , margin4 (rem 0.5) (rem 0) (rem 1) (rem 0)
         , fontSize (rem 1.2)
@@ -307,7 +308,7 @@ subheadStyle =
 navStyle : Style
 navStyle =
     batch
-        [ backgroundColor pink
+        [ backgroundColor colorSecondary
         , padding4 (rem 1) (rem 1) (rem 3) (rem 1)
         , marginBottom (rem 1)
         , withMediaTabletPortraitUp [ marginBottom (rem 0), padding (rem 1), maxWidth (pct 55) ]
@@ -334,10 +335,10 @@ navListItemStyle =
 navListItemLinkStyle : Style
 navListItemLinkStyle =
     batch
-        [ color darkBlue
+        [ color colorPrimary
         , textDecoration none
         , transition [ Css.Transitions.color 300 ]
-        , withMediaCanHover [ hover [ color white ] ]
+        , withMediaCanHover [ hover [ color colorWhite ] ]
         ]
 
 
@@ -359,7 +360,7 @@ logoListItemStyle =
         , flexDirection column
         , textAlign center
         , after
-            [ color white
+            [ color colorWhite
             , property "content" "\"+\""
             , display block
             , fontSize (rem 2)
@@ -373,16 +374,16 @@ logoListItemStyle =
         ]
 
 
-logoGIStyle : Style
-logoGIStyle =
+partnershipLogoStyle : Style
+partnershipLogoStyle =
     batch
         [ width (px 138.184)
         , height (px 48)
-        , backgroundImage (url "/images/logos/GI_pink.svg")
+        , backgroundImage (url "/images/logos/partnership_secondary.svg")
         , backgroundSize (px 138.184)
-        , withMediaCanHover [ hover [ backgroundImage (url "/images/logos/GI_pink_rollover.svg") ] ]
-        , focus [ backgroundImage (url "/images/logos/GI_white.svg") ]
-        , active [ backgroundImage (url "/images/logos/GI_white.svg") ]
+        , withMediaCanHover [ hover [ backgroundImage (url "/images/logos/partnership_secondary_rollover.svg") ] ]
+        , focus [ backgroundImage (url "/images/logos/partnership_white.svg") ]
+        , active [ backgroundImage (url "/images/logos/partnership_white.svg") ]
         , alignSelf center
         ]
 
@@ -409,7 +410,7 @@ formStyle =
     batch
         [ padding (rem 1)
         , boxSizing borderBox
-        , color white
+        , color colorWhite
         , marginBottom (rem 1)
         ]
 
@@ -435,7 +436,7 @@ formInputStyle =
         , textAlign center
         , width (pct 100)
         , fontSize (rem 1.2)
-        , pseudoElement "placeholder" [ color white ]
+        , pseudoElement "placeholder" [ color colorWhite ]
         , withMediaTabletPortraitUp [ margin4 (rem 0) (rem 1) (rem 0) (rem 0) ]
         ]
 
@@ -467,10 +468,10 @@ infoParagraphStyle =
 creditLinkStyle : Style
 creditLinkStyle =
     batch
-        [ color darkBlue
-        , withMediaCanHover [ hover [ color darkPurple ] ]
-        , focus [ color white ]
-        , active [ color white ]
+        [ color colorPrimary
+        , withMediaCanHover [ hover [ color colorAccentDark ] ]
+        , focus [ color colorWhite ]
+        , active [ color colorWhite ]
         , transition [ colorTransition ]
         ]
 

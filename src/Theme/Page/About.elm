@@ -5,7 +5,8 @@ import Css.Global exposing (descendants, typeSelector)
 import Html.Styled exposing (Html, a, div, h3, h4, img, p, section, text)
 import Html.Styled.Attributes exposing (alt, css, href, src)
 import Markdown.Block
-import Theme.Global exposing (buttonFloatingWrapperStyle, contentContainerStyle, contentWrapperStyle, introTextLargeStyle, normalFirstParagraphStyle, smallFloatingTitleStyle, textBoxPinkStyle, whiteButtonStyle, withMediaMediumDesktopUp, withMediaMobileOnly, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (contentWrapperStyle, introTextLargeStyle, normalFirstParagraphStyle, smallFloatingTitleStyle, textBoxSecondaryStyle, whiteButtonStyle)
+import Theme.GlobalLayout exposing (buttonFloatingWrapperStyle, contentContainerStyle, withMediaMediumDesktopUp, withMediaMobileOnly, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.PageTemplate
 import Theme.TransMarkdown
 
@@ -33,7 +34,7 @@ viewAccessibility : Theme.PageTemplate.SectionWithTextHeader -> Html msg
 viewAccessibility { title, subtitle, body } =
     section [ css [ contentWrapperStyle, accessibilityStyle ] ]
         [ h3 [ css [ smallFloatingTitleStyle, withMediaMobileOnly [ top (rem -4.5) ] ] ] [ text title ]
-        , div [ css [ textBoxPinkStyle, accessibilityCharactersStyle ] ] [ p [ css [ introTextLargeStyle ] ] [ text subtitle ] ]
+        , div [ css [ textBoxSecondaryStyle, accessibilityCharactersStyle ] ] [ p [ css [ introTextLargeStyle ] ] [ text subtitle ] ]
         , div [ css [ contentContainerStyle, aboutAccessibilityTextStyle ] ] (Theme.TransMarkdown.markdownBlocksToHtml body)
         ]
 
@@ -50,7 +51,7 @@ viewMakers makersList =
 
 viewMaker : { name : String, url : String, logo : String, body : List Markdown.Block.Block } -> Html msg
 viewMaker { name, url, logo, body } =
-    div [ css [ makerStyle, textBoxPinkStyle ] ]
+    div [ css [ makerStyle, textBoxSecondaryStyle ] ]
         [ h4 [ css [ makerHeaderStyle ] ] [ img [ src logo, alt name, css [ makerLogoStyle ] ] [] ]
         , div [ css [ normalFirstParagraphStyle ] ] (Theme.TransMarkdown.markdownBlocksToHtml body)
         , p [ css [ buttonFloatingWrapperStyle ] ] [ a [ href url, css [ whiteButtonStyle ] ] [ text "Find out more" ] ]
@@ -61,7 +62,7 @@ viewAboutPlaceCal : Theme.PageTemplate.SectionWithImageHeader -> Html msg
 viewAboutPlaceCal { title, subtitleimg, subtitleimgalt, body } =
     section [ css [ contentWrapperStyle, placeCalStyle ] ]
         [ h3 [ css [ smallFloatingTitleStyle ] ] [ text title ]
-        , div [ css [ textBoxPinkStyle ] ]
+        , div [ css [ textBoxSecondaryStyle ] ]
             [ img
                 [ src subtitleimg
                 , alt subtitleimgalt
@@ -103,7 +104,7 @@ introTextStyle =
                 , height (px 541)
                 , bottom (px -160)
                 , right (px -350)
-                , backgroundImage (url "/images/characters/flag_holder.png")
+                , backgroundImage (url "/images/characters/about-character-2.png")
                 ]
             ]
         ]
@@ -218,7 +219,7 @@ accessibilityCharactersStyle =
                 , position absolute
                 , zIndex (int 2)
                 , backgroundRepeat noRepeat
-                , backgroundImage (url "/images/characters/person_in_wheelchair.png")
+                , backgroundImage (url "/images/characters/about-character-1.png")
                 , top (px -190)
                 , left (px 10)
                 ]
@@ -241,7 +242,7 @@ accessibilityCharactersStyle =
                 , position absolute
                 , zIndex (int 2)
                 , backgroundRepeat noRepeat
-                , backgroundImage (url "/images/characters/nb_helmet_person.png")
+                , backgroundImage (url "/images/characters/about-character-3.png")
                 , bottom (px -50)
                 , right (px -10)
                 ]
@@ -434,7 +435,7 @@ placeCalStyle =
                 , height (px 516)
                 , left (px -80)
                 , top (px -70)
-                , backgroundImage (url "/images/characters/space_princess.png")
+                , backgroundImage (url "/images/characters/about-character-4.png")
                 ]
             ]
         , withMediaMediumDesktopUp

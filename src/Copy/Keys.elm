@@ -9,12 +9,12 @@ type Prefix
 type Key
     = SiteTitle
     | SiteStrapline
-    | TransDimensionDescription
+    | PartnershipDescription
     | SiteLogoSrc
     | PageMetaTitle String
     | GeeksForSocialChangeHomeUrl
-    | GenderedIntelligenceHomeUrl
-    | GenderedIntelligenceLogoTxt
+    | PartnerOrganisationHomeUrl
+    | PartnerOrganisationLogoTxt
     | GoogleMapSearchUrl String
     | SeeOnGoogleMapText
     | MapImageAltText String

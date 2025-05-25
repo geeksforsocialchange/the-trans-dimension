@@ -70,7 +70,7 @@ view app _ =
     { title = t (PageMetaTitle (t NewsTitle))
     , body =
         [ Theme.PageTemplate.view
-            { headerType = Just "pink"
+            { headerType = Just "secondary"
             , title = t NewsTitle
             , bigText = { text = t NewsDescription, node = "h3" }
             , smallText = Nothing

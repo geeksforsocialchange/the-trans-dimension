@@ -15,7 +15,8 @@ import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
-import Theme.Global
+import Skin.Global exposing (globalStyles)
+import Theme.GlobalLayout exposing (containerPage)
 import Theme.PageFooter exposing (viewPageFooter)
 import Theme.PageHeader exposing (viewPageHeader)
 import Time
@@ -244,8 +245,8 @@ view :
 view sharedData page model toMsg pageView =
     { body =
         [ Html.Styled.toUnstyled
-            (Theme.Global.containerPage pageView.title
-                [ Theme.Global.globalStyles
+            (containerPage pageView.title
+                [ globalStyles
                 , viewPageHeader page
                     { showMobileMenu = model.showMobileMenu }
                     |> Html.Styled.map toMsg

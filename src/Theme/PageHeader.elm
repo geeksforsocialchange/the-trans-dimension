@@ -10,7 +10,8 @@ import Html.Styled.Attributes exposing (attribute, css, href)
 import Html.Styled.Events exposing (onClick)
 import Messages exposing (Msg(..))
 import Route exposing (Route)
-import Theme.Global exposing (darkBlue, pink, screenReaderOnly, white, withMediaCanHover, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorPrimary, colorSecondary, colorWhite)
+import Theme.GlobalLayout exposing (screenReaderOnly, withMediaCanHover, withMediaTabletPortraitUp)
 import Theme.Logo
 import UrlPath exposing (UrlPath)
 
@@ -142,7 +143,7 @@ headerStyle =
         [ displayFlex
         , flexDirection columnReverse
         , textAlign center
-        , color white
+        , color colorWhite
         , paddingBottom (rem 1)
         ]
 
@@ -167,7 +168,7 @@ barStyle : Style
 barStyle =
     batch
         [ withMediaTabletPortraitUp
-            [ backgroundColor pink
+            [ backgroundColor colorSecondary
             , alignItems center
             ]
         ]
@@ -197,7 +198,7 @@ menuButtonButtonStyle =
 buttonTextStyle : Style
 buttonTextStyle =
     batch
-        [ color white
+        [ color colorWhite
         , marginRight (rem 0.5)
         ]
 
@@ -205,7 +206,7 @@ buttonTextStyle =
 buttonCrossStyle : Style
 buttonCrossStyle =
     batch
-        [ color pink
+        [ color colorSecondary
         , fontSize (rem 4)
         , fontWeight lighter
         , display block
@@ -231,7 +232,7 @@ navigationListStyle =
 navigationListItemStyle : Style
 navigationListItemStyle =
     batch
-        [ backgroundColor pink
+        [ backgroundColor colorSecondary
         , display block
         , padding (rem 1)
         , boxSizing borderBox
@@ -248,15 +249,15 @@ navigationLinkStyle : Style
 navigationLinkStyle =
     batch
         [ fontWeight (int 600)
-        , color darkBlue
+        , color colorPrimary
         , textDecoration none
         , display block
         , borderBottomWidth (rem 0.2)
         , borderBottomStyle solid
-        , borderBottomColor pink
-        , withMediaCanHover [ hover [ color white ] ]
+        , borderBottomColor colorSecondary
+        , withMediaCanHover [ hover [ color colorWhite ] ]
         , transition [ Css.Transitions.border 300, Css.Transitions.color 300 ]
-        , withMediaTabletPortraitUp [ withMediaCanHover [ hover [ borderBottomColor darkBlue ] ] ]
+        , withMediaTabletPortraitUp [ withMediaCanHover [ hover [ borderBottomColor colorPrimary ] ] ]
         ]
 
 
@@ -264,11 +265,11 @@ navigationCurrentStyle : Style
 navigationCurrentStyle =
     batch
         [ fontWeight (int 600)
-        , color darkBlue
+        , color colorPrimary
         , textDecoration none
         , display block
         , withMediaTabletPortraitUp
-            [ borderBottomColor darkBlue
+            [ borderBottomColor colorPrimary
             , borderBottomWidth (rem 0.2)
             , borderBottomStyle solid
             ]
@@ -279,13 +280,13 @@ navigationLinkCurrentCategoryStyle : Style
 navigationLinkCurrentCategoryStyle =
     batch
         [ fontWeight (int 600)
-        , color darkBlue
+        , color colorPrimary
         , textDecoration none
         , display block
-        , withMediaCanHover [ hover [ color white ] ]
+        , withMediaCanHover [ hover [ color colorWhite ] ]
         , transition [ Css.Transitions.border 300, Css.Transitions.color 300 ]
         , withMediaTabletPortraitUp
-            [ borderBottomColor darkBlue
+            [ borderBottomColor colorPrimary
             , borderBottomWidth (rem 0.2)
             , borderBottomStyle solid
             ]
@@ -306,10 +307,10 @@ askStyle =
 askButtonStyle : Style
 askButtonStyle =
     batch
-        [ backgroundColor white
+        [ backgroundColor colorWhite
         , borderBottomStyle none
         , padding (rem 1)
-        , withMediaCanHover [ hover [ color pink ] ]
+        , withMediaCanHover [ hover [ color colorSecondary ] ]
         , withMediaTabletPortraitUp
             [ padding4 (rem 0.375) (rem 1.25) (rem 0.5) (rem 1.25)
             , borderRadius (rem 0.3)

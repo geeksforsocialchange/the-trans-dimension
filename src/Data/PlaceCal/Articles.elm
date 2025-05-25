@@ -3,7 +3,7 @@ module Data.PlaceCal.Articles exposing (Article, articleFromSlug, articlesData, 
 import Array
 import BackendTask
 import BackendTask.Custom
-import Copy.Text exposing (isValidUrl)
+import Copy.Utils exposing (isValidUrl)
 import Data.PlaceCal.Api
 import Data.PlaceCal.Partners
 import FatalError

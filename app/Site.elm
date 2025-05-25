@@ -9,7 +9,7 @@ import Pages.Manifest as Manifest
 import Pages.Url
 import Route
 import SiteConfig exposing (SiteConfig)
-import Theme.Global
+import Skin.Global
 import UrlPath
 
 
@@ -24,8 +24,8 @@ head : BackendTask FatalError (List Head.Tag)
 head =
     [ Head.sitemapLink "/sitemap.xml"
     , Head.appleTouchIcon (Just 180) (pathFromString "/favicons/apple-touch-icon.png")
-    , Head.metaName "msapplication-TileColor" (Head.raw "#ff7aa7")
-    , Head.metaName "theme-color" (Head.raw "#FF7AA7")
+    , Head.metaName "msapplication-TileColor" (Head.raw Skin.Global.colorSecondaryHexString)
+    , Head.metaName "theme-color" (Head.raw Skin.Global.colorSecondaryHexString)
     ]
         ++ icons
             [ ( 32, "favicon-32x32.png" )
@@ -53,8 +53,8 @@ manifest =
               }
             ]
         }
-        |> Manifest.withBackgroundColor Theme.Global.darkBlueRgbColor
-        |> Manifest.withThemeColor Theme.Global.pinkRgbColor
+        |> Manifest.withBackgroundColor Skin.Global.colorPrimaryRgb
+        |> Manifest.withThemeColor Skin.Global.colorSecondaryRgb
 
 
 pathFromString srcString =

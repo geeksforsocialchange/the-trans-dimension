@@ -6,7 +6,7 @@ import Css.Transitions exposing (transition)
 import Html.Styled exposing (Html)
 import Svg.Styled exposing (defs, g, path, svg, text, title)
 import Svg.Styled.Attributes exposing (clipRule, d, fill, height, id, transform, viewBox, width, xmlSpace)
-import Theme.Global exposing (withMediaCanHover)
+import Theme.GlobalLayout exposing (withMediaCanHover)
 
 
 view : Html msg

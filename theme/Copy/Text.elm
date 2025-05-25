@@ -1,4 +1,4 @@
-module Copy.Text exposing (isValidUrl, t, urlToDisplay)
+module Copy.Text exposing (t)
 
 import Constants exposing (canonicalUrl)
 import Copy.Keys exposing (Key(..), Prefix(..))
@@ -13,39 +13,21 @@ t : Key -> String
 t key =
     case key of
         SiteTitle ->
-            "The Trans Dimension"
+            "[Site title]"
 
         SiteStrapline ->
-            "Space and spaces for us"
+            "[Site strapline] Lorem ipsum dolor sit amet consectetur adipiscing elit."
 
-        TransDimensionDescription ->
+        PartnershipDescription ->
             -- Note this is also in content/about/main.md
             -- If they should remain in sync, we should remove from there
-            "The Trans Dimension is an online community hub connecting trans communities in London and Manchester. We collate news, events and services by and for trans people."
+            "[Partnership despription] Lorem ipsum dolor sit amet consectetur adipiscing elit. Dolor sit amet consectetur adipiscing elit quisque faucibus."
 
-        SiteLogoSrc ->
-            canonicalUrl ++ "images/logos/tdd_logo_with_strapline_on_darkBlue.png"
+        PartnerOrganisationHomeUrl ->
+            "[Partnership Organisation website] https://example.co.uk/"
 
-        GeeksForSocialChangeHomeUrl ->
-            "https://gfsc.studio/"
-
-        GenderedIntelligenceHomeUrl ->
-            "https://genderedintelligence.co.uk/"
-
-        GenderedIntelligenceLogoTxt ->
-            "Gendered Intelligence"
-
-        GoogleMapSearchUrl address ->
-            "https://www.google.com/maps/search/?api=1&query=" ++ Url.percentEncode address
-
-        SeeOnGoogleMapText ->
-            "See on Google map"
-
-        MapImageAltText locationName ->
-            "A map showing the location of " ++ locationName
-
-        PageMetaTitle pageTitle ->
-            String.join " | " [ pageTitle, t SiteTitle ]
+        PartnerOrganisationLogoTxt ->
+            "[Partnership Organisation logo text]"
 
         --- Header
         HeaderMobileMenuButton ->
@@ -55,7 +37,7 @@ t key =
             "Donate"
 
         HeaderAskLink ->
-            -- PHT Donorbox
+            -- f you don't have a donation link, you can retain ours for the money will go towards maintaining this template
             "https://donorbox.org/the-trans-dimension"
 
         --- Footer
@@ -63,13 +45,13 @@ t key =
             "Follow us out there"
 
         FooterInstaLink ->
-            "https://www.instagram.com/genderedintelligence/"
+            "https://www.instagram.com/[Instagram handle]"
 
         FooterTwitterLink ->
-            "https://twitter.com/genderintell"
+            "https://twitter.com/[Twitter X handle]"
 
         FooterFacebookLink ->
-            "https://www.facebook.com/GenderedIntelligence"
+            "https://www.facebook.com/[Facebook handle]"
 
         FooterSignupText ->
             "Register for updates"
@@ -84,37 +66,37 @@ t key =
             "Created by"
 
         FooterInfoTitle ->
-            "The Trans Dimension, c/o Gendered Intelligence"
+            "[Partnership orgnaisation], c/o GFSC Community CIC"
 
         FooterInfoCharity ->
-            "Gendered Intelligence is a Registered Charity in England and Wales No. 1182558."
+            "[Partnership organisation charity reg. or blank]"
 
         FooterInfoCompany ->
-            "Registered as a Company Limited by Guarantee in England and Wales No. 06617608."
+            "[Partnership organisation company reg. or blank]"
 
         FooterInfoOffice ->
-            "Registered office at VAI, 200a Pentonville Road, London N1 9JP."
+            "[Partnership organisation registered office]"
 
         FooterCreditTitle ->
-            "Credits"
+            "[Credits or blank]"
 
         FooterCredit1Text ->
-            "Illustrations by"
+            "[e.g. Illustrations by]"
 
         FooterCredit1Name ->
-            "Harry Woodgate"
+            "[Illustrator name]"
 
         FooterCredit1Link ->
-            "https://www.harrywoodgate.com/"
+            "https://[illustrator.example.com]"
 
         FooterCredit2Text ->
-            "design by"
+            "[Credit 2]"
 
         FooterCredit2Name ->
-            "Squid"
+            "[Credit 2 name]"
 
         FooterCredit2Link ->
-            "https://studiosquid.co.uk/"
+            "https://[credit2.example.com]"
 
         FooterCredit3Text ->
             "website by"
@@ -126,27 +108,17 @@ t key =
             t GeeksForSocialChangeHomeUrl
 
         FooterCopyright year ->
-            "© " ++ year ++ " Gendered Intelligence. All rights reserved."
-
-        FooterPlaceCal ->
-            "Powered by PlaceCal"
-
-        --- Region Selector
-        AllRegionSelectorLabel ->
-            "Everywhere"
+            "© " ++ year ++ " [Partnership organisation] All rights reserved."
 
         --- Index Page
         IndexTitle ->
             "Home"
 
         IndexMetaDescription ->
-            "An online community hub which will connect trans communities across the UK by collating news, events and services by and for trans people in one easy-to-reach place. A collaboration between Gendered Intelligence and Geeks for Social Change."
+            "[Home page meta description] Ex sapien vitae pellentesque sem placerat in id. Placerat in id cursus mi pretium tellus duis. Pretium tellus duis convallis tempus leo eu aenean. "
 
         IndexIntroTitle ->
-            "Trusted, accessible, trans-friendly spaces. Always expanding."
-
-        IndexIntroMessage ->
-            t TransDimensionDescription
+            "[Home page intro text] Placerat in id cursus.Pretium tellus duis. Convallis tempus leo eu aenean. "
 
         IndexIntroButtonText ->
             "See what's on"
@@ -168,17 +140,17 @@ t key =
             "About"
 
         AboutMetaDescription ->
-            t TransDimensionDescription
+            t PartnershipDescription
 
         --- Events Page
         EventsTitle ->
             "Events"
 
         EventsMetaDescription ->
-            "Events and activities by and for trans communities across the UK."
+            "Events and activities by and for [who? where?]."
 
         EventsSummary ->
-            "Upcoming events & activities for you."
+            "Upcoming events & activities"
 
         EventsSubHeading ->
             "Upcoming events"
@@ -233,19 +205,19 @@ t key =
             "Partners"
 
         PartnersMetaDescription ->
-            "Trans Dimension partners form an online community for connecting trans people across the UK by publishing service information, events and news on PlaceCal."
+            "[Partner listing meta description] Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos."
 
         PartnersIntroSummary ->
-            "The Trans Dimension is a partnership of grassroots groups and charities with a track record of supporting the trans community."
+            "[Partner listing intro summary] Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu."
 
         PartnersIntroDescription ->
-            "All of our partners are explicitly trans-friendly organisations. Some are led by trans people, and some led by friends and allies. They put on events, provide services and offer support for members of our community."
+            "[Partner listing intro description] Iaculis massa nisl malesuada lacinia integer nunc posuere. Ut hendrerit semper vel class aptent taciti sociosqu. Ad litora torquent per conubia nostra inceptos himenaeos."
 
         PartnersListHeading ->
             "All partners"
 
         PartnersListEmpty ->
-            "There are currently no Trans Dimension partners"
+            "There are currently no [Partnership name] partners"
 
         PartnersMapAltText ->
             "A map showing the locations of all partners with listed addresses"
@@ -253,9 +225,6 @@ t key =
         --- Partner Page
         PartnerTitle partnerName ->
             "PlaceCal Partner - " ++ partnerName
-
-        PartnerMetaDescription partnerName partnerSummary ->
-            partnerName ++ " - " ++ partnerSummary
 
         PartnerContactsHeading ->
             "Get in touch"
@@ -289,13 +258,13 @@ t key =
             "Join us"
 
         JoinUsSubtitle ->
-            "Want to be listed on The Trans Dimension?"
+            "Want to be listed on" ++ t SiteTitle ++ "?"
 
         JoinUsMetaDescription ->
-            "Want to be listed on The Trans Dimension? Get in touch and learn how you can create space and spaces for us."
+            "[Join Us page meta description] Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas."
 
         JoinUsDescription ->
-            "Get in touch and learn how you can create space and spaces for us."
+            "[Join Us description]Tempus leo eu aenean sed diam urna tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas."
 
         JoinUsFormInputNameLabel ->
             "Name"
@@ -366,7 +335,7 @@ t key =
             "Privacy"
 
         PrivacyMetaDescription ->
-            "Privacy information for The Trans Dimension website."
+            "Privacy information for " ++ t SiteTitle
 
         --- 404 Page
         ErrorTitle ->
@@ -378,36 +347,35 @@ t key =
         ErrorButtonText ->
             "Back to home"
 
+        ---
+        -- Core text that probably does not need editing
+        ---
+        SiteLogoSrc ->
+            canonicalUrl ++ "images/logos/site_logo_on_primary_background.png"
 
-urlRecombiner : Maybe Url.Url -> String
-urlRecombiner urlRecord =
-    case urlRecord of
-        Just url ->
-            url.host ++ url.path ++ Maybe.withDefault "" url.query ++ Maybe.withDefault "" url.fragment
+        GeeksForSocialChangeHomeUrl ->
+            "https://gfsc.studio/"
 
-        Nothing ->
-            ""
+        GoogleMapSearchUrl address ->
+            "https://www.google.com/maps/search/?api=1&query=" ++ Url.percentEncode address
 
+        SeeOnGoogleMapText ->
+            "See on Google map"
 
-chompTrailingUrlSlash : String -> String
-chompTrailingUrlSlash urlString =
-    if String.endsWith "/" urlString then
-        String.dropRight 1 urlString
+        MapImageAltText locationName ->
+            "A map showing the location of " ++ locationName
 
-    else
-        urlString
+        PageMetaTitle pageTitle ->
+            String.join " | " [ pageTitle, t SiteTitle ]
 
+        FooterPlaceCal ->
+            "Powered by PlaceCal"
 
-urlToDisplay : String -> String
-urlToDisplay url =
-    Url.fromString url |> urlRecombiner |> chompTrailingUrlSlash
+        AllRegionSelectorLabel ->
+            "Everywhere"
 
+        IndexIntroMessage ->
+            t PartnershipDescription
 
-isValidUrl : String -> Bool
-isValidUrl urlString =
-    case Url.fromString urlString of
-        Just url ->
-            url.protocol == Url.Https
-
-        Nothing ->
-            False
+        PartnerMetaDescription partnerName partnerSummary ->
+            partnerName ++ " - " ++ partnerSummary

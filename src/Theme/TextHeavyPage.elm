@@ -4,7 +4,7 @@ import Css exposing (Style, auto, batch, margin2, marginBottom, marginTop, maxWi
 import Html.Styled exposing (Html, section)
 import Html.Styled.Attributes exposing (css)
 import Markdown.Block
-import Theme.Global exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.GlobalLayout exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.PageTemplate as PageTemplate
 import Theme.TransMarkdown
 

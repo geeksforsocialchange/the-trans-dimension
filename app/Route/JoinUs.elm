@@ -94,7 +94,7 @@ view _ _ model =
     { title = t (PageMetaTitle (t JoinUsTitle))
     , body =
         [ Theme.PageTemplate.view
-            { headerType = Just "pink"
+            { headerType = Just "secondary"
             , title = t JoinUsTitle
             , bigText = { text = t JoinUsSubtitle, node = "p" }
             , smallText = Just [ t JoinUsDescription ]

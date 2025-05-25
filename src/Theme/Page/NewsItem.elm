@@ -6,7 +6,7 @@ import Data.PlaceCal.Articles
 import Helpers.TransDate as TransDate
 import Html.Styled exposing (Html, article, div, figure, img, p, span, text, time)
 import Html.Styled.Attributes exposing (alt, css, src)
-import Theme.Global exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.GlobalLayout exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Theme.TransMarkdown as TransMarkdown
 
 

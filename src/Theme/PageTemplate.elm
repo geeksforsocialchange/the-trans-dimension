@@ -10,7 +10,8 @@ import Html.Styled.Attributes exposing (alt, css, src)
 import List exposing (append)
 import Markdown.Block
 import Pages.Url
-import Theme.Global exposing (contentContainerStyle, contentWrapperStyle, introTextLargeStyle, introTextSmallStyle, textBoxInvisibleStyle, textBoxPinkStyle, white, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorWhite, contentWrapperStyle, introTextLargeStyle, introTextSmallStyle, textBoxInvisibleStyle, textBoxSecondaryStyle)
+import Theme.GlobalLayout exposing (contentContainerStyle, withMediaMediumDesktopUp, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 
 
 type alias PageUsingTemplate msg =
@@ -45,7 +46,7 @@ type alias BigText =
 
 
 type HeaderType
-    = PinkHeader
+    = SecondaryHeader
     | InvisibleHeader
     | AboutHeader
 
@@ -53,8 +54,8 @@ type HeaderType
 stringToHeaderType : Maybe String -> HeaderType
 stringToHeaderType maybeTypeString =
     case maybeTypeString of
-        Just "pink" ->
-            PinkHeader
+        Just "secondary" ->
+            SecondaryHeader
 
         Just "invisible" ->
             InvisibleHeader
@@ -63,10 +64,10 @@ stringToHeaderType maybeTypeString =
             AboutHeader
 
         Just _ ->
-            PinkHeader
+            SecondaryHeader
 
         Nothing ->
-            PinkHeader
+            SecondaryHeader
 
 
 pageMetaTags : { title : Key, description : Key, imageSrc : Maybe String } -> List Head.Tag
@@ -130,7 +131,7 @@ viewHeader pageInfo =
     section []
         [ h1 [ css [ headerLogoStyle ] ]
             [ img
-                [ src "/images/logos/tdd_logo_with_strapline.svg"
+                [ src "/images/logos/site_logo_main.svg"
                 , alt (t SiteTitle ++ ", " ++ t SiteStrapline)
                 , css [ headerLogoImageStyle ]
                 ]
@@ -174,12 +175,12 @@ viewIntro bigText smallText =
         [ css
             (case smallText of
                 Nothing ->
-                    [ textBoxPinkStyle ]
+                    [ textBoxSecondaryStyle ]
 
                 Just _ ->
                     [ withMediaTabletPortraitUp
                         [ paddingTop (rem 1.5) ]
-                    , textBoxPinkStyle
+                    , textBoxSecondaryStyle
                     ]
             )
         ]
@@ -245,7 +246,7 @@ pageHeadingStyle =
     batch
         [ fontSize (rem 2.1)
         , outline none
-        , color white
+        , color colorWhite
         , fontStyle italic
         , fontWeight (int 500)
         , textAlign center
@@ -365,7 +366,7 @@ pageHeadingAboutStyle =
                 , position absolute
                 , zIndex (int 2)
                 , backgroundRepeat noRepeat
-                , backgroundImage (url "/images/characters/girl_with_afro.png")
+                , backgroundImage (url "/images/characters/primary-character.png")
                 , bottom (px -90)
                 ]
             ]

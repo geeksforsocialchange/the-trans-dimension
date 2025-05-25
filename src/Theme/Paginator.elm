@@ -11,8 +11,9 @@ import Helpers.TransDate as TransDate
 import Html.Styled exposing (Html, button, div, img, li, text, ul)
 import Html.Styled.Attributes exposing (css, id, src)
 import Html.Styled.Events
+import Skin.Global exposing (colorAccentDark, colorPrimary, colorSecondary, colorWhite)
 import Task exposing (Task)
-import Theme.Global exposing (backgroundColorTransition, borderTransition, colorTransition, darkBlue, darkPurple, pink, white, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.GlobalLayout exposing (backgroundColorTransition, borderTransition, colorTransition, maxMobile, maxTabletPortrait, withMediaCanHover, withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
 import Time
 
 
@@ -157,10 +158,10 @@ scrollPagination direction viewportWidth =
                 let
                     scrollXAmount : Float
                     scrollXAmount =
-                        if viewportWidth < Theme.Global.maxMobile then
+                        if viewportWidth < maxMobile then
                             buttonWidthMobile + (buttonMarginMobile * 2)
 
-                        else if viewportWidth < Theme.Global.maxTabletPortrait then
+                        else if viewportWidth < maxTabletPortrait then
                             buttonWidthTablet + (buttonMarginTablet * 2)
 
                         else
@@ -286,30 +287,30 @@ paginationButtonStyle : Style
 paginationButtonStyle =
     batch
         [ borderStyle solid
-        , borderColor pink
+        , borderColor colorSecondary
         , borderWidth (px 2)
-        , color pink
+        , color colorSecondary
         , borderRadius (rem 0.3)
         , textAlign center
         , cursor pointer
         , withMediaCanHover
             [ hover
-                [ backgroundColor darkPurple
-                , color white
-                , borderColor white
+                [ backgroundColor colorAccentDark
+                , color colorWhite
+                , borderColor colorWhite
                 , descendants [ typeSelector "img" [ property "filter" "invert(1)" ] ]
                 ]
             ]
         , focus
-            [ backgroundColor white
-            , color darkBlue
-            , borderColor white
+            [ backgroundColor colorWhite
+            , color colorPrimary
+            , borderColor colorWhite
             , descendants [ typeSelector "img" [ property "filter" "invert(0)" ] ]
             ]
         , active
-            [ backgroundColor white
-            , color darkBlue
-            , borderColor white
+            [ backgroundColor colorWhite
+            , color colorPrimary
+            , borderColor colorWhite
             , descendants [ typeSelector "img" [ property "filter" "invert(0)" ] ]
             ]
         , transition [ colorTransition, borderTransition, backgroundColorTransition ]
@@ -320,7 +321,7 @@ paginationArrowButtonStyle : Style
 paginationArrowButtonStyle =
     batch
         [ paginationButtonStyle
-        , backgroundColor pink
+        , backgroundColor colorSecondary
         , margin4 (rem 0.25) (rem 0.25) (rem 0.25) (rem 0)
         , paddingRight (rem 0.5)
         , withMediaSmallDesktopUp [ display none ]
@@ -335,7 +336,7 @@ paginationArrowButtonRightStyle : Style
 paginationArrowButtonRightStyle =
     batch
         [ paginationButtonStyle
-        , backgroundColor pink
+        , backgroundColor colorSecondary
         , margin4 (rem 0.25) (rem 0) (rem 0.25) (rem 0.25)
         , paddingLeft (rem 0.5)
         , withMediaSmallDesktopUp [ display none ]
@@ -421,7 +422,7 @@ paginationButtonListItemButtonStyle =
         , fontWeight (int 600)
         , padding4 (rem 0.2) (rem 0.2) (rem 0.3) (rem 0.2)
         , width (px buttonWidthMobile)
-        , backgroundColor darkBlue
+        , backgroundColor colorPrimary
         , withMediaTabletLandscapeUp [ width (px buttonWidthFullWidth), fontSize (rem 1.2) ]
         , withMediaTabletPortraitUp [ width (px buttonWidthTablet), fontSize (rem 1) ]
         ]
@@ -435,8 +436,8 @@ paginationButtonListItemButtonActiveStyle =
         , fontWeight (int 600)
         , padding4 (rem 0.2) (rem 0.2) (rem 0.3) (rem 0.2)
         , width (px buttonWidthMobile)
-        , backgroundColor pink
-        , color darkBlue
+        , backgroundColor colorSecondary
+        , color colorPrimary
         , withMediaTabletLandscapeUp [ width (px buttonWidthFullWidth), fontSize (rem 1.2) ]
         , withMediaTabletPortraitUp [ width (px buttonWidthTablet), fontSize (rem 1) ]
         ]

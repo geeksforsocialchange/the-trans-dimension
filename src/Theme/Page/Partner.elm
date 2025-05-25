@@ -2,12 +2,19 @@ module Theme.Page.Partner exposing (viewInfo)
 
 import Copy.Keys exposing (Key(..))
 import Copy.Text exposing (t)
+import Copy.Utils exposing (urlToDisplay)
 import Css exposing (Style, auto, batch, calc, center, color, displayFlex, fontStyle, important, margin2, margin4, marginBlockEnd, marginBlockStart, marginTop, maxWidth, minus, normal, pct, px, rem, textAlign, width)
 import Data.PlaceCal.Events
 import Data.PlaceCal.Partners
 import Html.Styled exposing (Html, a, address, div, h3, hr, p, section, span, text)
 import Html.Styled.Attributes exposing (css, href, id, target)
-import Theme.Global exposing (hrStyle, introTextLargeStyle, linkStyle, normalFirstParagraphStyle, pink, smallInlineTitleStyle, white, withMediaMediumDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Skin.Global exposing (colorSecondary, colorWhite, hrStyle, introTextLargeStyle, linkStyle, mapImage, normalFirstParagraphStyle, smallInlineTitleStyle)
+import Theme.GlobalLayout
+    exposing
+        ( withMediaMediumDesktopUp
+        , withMediaTabletLandscapeUp
+        , withMediaTabletPortraitUp
+        )
 import Theme.Page.Events
 import Theme.Paginator
 import Theme.TransMarkdown
@@ -33,11 +40,11 @@ viewInfo localModel { partner, events } =
         , hr [ css [ hrStyle ] ] []
         , section [ css [ contactWrapperStyle ] ]
             [ div [ css [ contactSectionStyle ] ]
-                [ h3 [ css [ contactHeadingStyle, Theme.Global.smallInlineTitleStyle ] ] [ text (t PartnerContactsHeading) ]
+                [ h3 [ css [ contactHeadingStyle, smallInlineTitleStyle ] ] [ text (t PartnerContactsHeading) ]
                 , viewContactDetails partner.maybeUrl partner.maybeContactDetails partner.maybeInstagramUrl
                 ]
             , div [ css [ contactSectionStyle ] ]
-                [ h3 [ css [ contactHeadingStyle, Theme.Global.smallInlineTitleStyle ] ] [ text (t PartnerAddressHeading) ]
+                [ h3 [ css [ contactHeadingStyle, smallInlineTitleStyle ] ] [ text (t PartnerAddressHeading) ]
                 , viewAddress partner.maybeAddress
                 ]
             ]
@@ -47,7 +54,7 @@ viewInfo localModel { partner, events } =
             Just geo ->
                 div [ css [ mapContainerStyle ] ]
                     [ p []
-                        [ Theme.Global.mapImage
+                        [ mapImage
                             (t (MapImageAltText partner.name))
                             { latitude = geo.latitude, longitude = geo.longitude }
                         ]
@@ -71,7 +78,7 @@ viewPartnerEvents :
 viewPartnerEvents events localModel partner =
     let
         eventAreaTitle =
-            h3 [ css [ smallInlineTitleStyle, color white ] ] [ text (t (PartnerUpcomingEventsText partner.name)) ]
+            h3 [ css [ smallInlineTitleStyle, color colorWhite ] ] [ text (t (PartnerUpcomingEventsText partner.name)) ]
 
         futureEvents =
             Data.PlaceCal.Events.afterDate events localModel.nowTime
@@ -100,7 +107,7 @@ viewPartnerEvents events localModel partner =
             if List.length pastEvents > 0 then
                 -- If there are no future events but there were in the past, show them
                 [ div []
-                    [ h3 [ css [ smallInlineTitleStyle, color white ] ] [ text (t (PartnerPreviousEventsText partner.name)) ]
+                    [ h3 [ css [ smallInlineTitleStyle, color colorWhite ] ] [ text (t (PartnerPreviousEventsText partner.name)) ]
                     , Theme.Page.Events.viewEventsList { localModel | filterByDate = Theme.Paginator.None } pastEvents Nothing
                     ]
                 ]
@@ -108,7 +115,7 @@ viewPartnerEvents events localModel partner =
             else
                 -- This partner has never had events
                 [ eventAreaTitle
-                , p [ css [ introTextLargeStyle, color pink, important (maxWidth (px 636)) ] ] [ text (t (PartnerEventsEmptyText partner.name)) ]
+                , p [ css [ introTextLargeStyle, color colorSecondary, important (maxWidth (px 636)) ] ] [ text (t (PartnerEventsEmptyText partner.name)) ]
                 ]
         )
 
@@ -147,13 +154,13 @@ viewContactDetails maybeUrl maybeContactDetails maybeInstagramUrl =
                     text ""
             , case maybeUrl of
                 Just url ->
-                    p [ css [ contactItemStyle ] ] [ a [ href url, target "_blank", css [ linkStyle ] ] [ text (Copy.Text.urlToDisplay url) ] ]
+                    p [ css [ contactItemStyle ] ] [ a [ href url, target "_blank", css [ linkStyle ] ] [ text (urlToDisplay url) ] ]
 
                 Nothing ->
                     text ""
             , case maybeInstagramUrl of
                 Just url ->
-                    p [ css [ contactItemStyle ] ] [ a [ href url, target "_blank", css [ linkStyle ] ] [ text (Copy.Text.urlToDisplay url) ] ]
+                    p [ css [ contactItemStyle ] ] [ a [ href url, target "_blank", css [ linkStyle ] ] [ text (urlToDisplay url) ] ]
 
                 Nothing ->
                     text ""
@@ -232,7 +239,7 @@ contactSectionStyle =
 
 contactHeadingStyle : Style
 contactHeadingStyle =
-    batch [ color Theme.Global.pink ]
+    batch [ color colorSecondary ]
 
 
 contactItemStyle : Style

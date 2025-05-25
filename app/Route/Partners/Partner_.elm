@@ -20,8 +20,8 @@ import Html.Styled
 import PagesMsg
 import RouteBuilder
 import Shared
+import Skin.Global
 import Task
-import Theme.Global
 import Theme.Page.Events
 import Theme.Page.Partner
 import Theme.PageTemplate
@@ -223,7 +223,7 @@ view app _ model =
     { title = t (PageMetaTitle aPartner.name)
     , body =
         [ Theme.PageTemplate.view
-            { headerType = Just "pink"
+            { headerType = Just "secondary"
             , title = t PartnersTitle
             , bigText = { text = aPartner.name, node = "h3" }
             , smallText = Nothing
@@ -234,7 +234,7 @@ view app _ model =
                         , events = eventsFromPartnerId aPartner.id app.data.events
                         }
                     )
-            , outerContent = Just (Theme.Global.viewBackButton (Helpers.TransRoutes.toAbsoluteUrl Partners) (t BackToPartnersLinkText))
+            , outerContent = Just (Skin.Global.viewBackButton (Helpers.TransRoutes.toAbsoluteUrl Partners) (t BackToPartnersLinkText))
             }
             |> Html.Styled.map PagesMsg.fromMsg
         ]
