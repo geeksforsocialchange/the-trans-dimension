@@ -1,10 +1,45 @@
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: "0 * * * *"
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - run:
-          curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/fe5b4ebb-7029-4c5a-8cd7-4b933dd7bdc0"
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+
+      - name: Cache node_modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Cache elm-stuff
+        uses: actions/cache@v4
+        with:
+          path: elm-stuff
+          key: elm-stuff-${{ hashFiles('elm.json', 'elm-tooling.json') }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          CANONICAL_URL: https://transdimension.uk/
+          PLACECAL_API: https://placecal.org/api/v1/graphql
+          PARTNERSHIP_TAG_LIST: "3|London,30|Manchester"
+          JOIN_US_FUNCTION_URL: https://formspree.io/f/xeqdljwl
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=${{ secrets.CLOUDFLARE_PAGES_PROJECT_NAME }}
