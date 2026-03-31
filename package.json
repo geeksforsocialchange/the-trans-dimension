@@ -27,5 +27,8 @@
     "lamdera": "^0.19.1-1.2.1-1",
     "lint-staged": "^15.4.2",
     "vite": "^5.3.3"
+  },
+  "dependencies": {
+    "vite-plugin-pwa": "^0.21.1"
   }
 }
