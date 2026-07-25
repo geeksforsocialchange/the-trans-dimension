@@ -54,6 +54,15 @@ jobs:
           cp .env.example .env
           npx elm-constants
 
+      # .elm-pages is generated and gitignored, so it does not exist on a
+      # fresh checkout. elm-review must see it: the generated Main.elm is
+      # what references Site.config, View.map and the Effect/Shared
+      # functions, and without it NoUnused.Exports reports them as dead and
+      # offers to delete live framework code. `gen` does the codegen without
+      # running a full build, so it needs no API access or secrets.
+      - name: Generate elm-pages code
+        run: npx elm-pages gen
+
       - name: elm-review
         run: npm run review
 
