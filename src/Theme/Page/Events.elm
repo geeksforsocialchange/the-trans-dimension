@@ -93,7 +93,7 @@ viewEventsList localModel eventsList maybeListLength =
     div []
         [ if List.length filteredEvents > 0 then
             ul [ css [ eventsListStyle ] ]
-                (List.map (\event -> viewEvent event localModel.timezone) filteredEvents)
+                (List.map (\event -> viewEvent event localModel.timezone localModel.nowTime) filteredEvents)
                 |> Html.Styled.map fromPaginatorMsg
 
           else
@@ -130,8 +130,8 @@ viewEmptyEventText filterBy =
         ]
 
 
-viewEvent : Data.PlaceCal.Events.Event -> Time.Zone -> Html msg
-viewEvent event timezone =
+viewEvent : Data.PlaceCal.Events.Event -> Time.Zone -> Time.Posix -> Html msg
+viewEvent event timezone nowTime =
     li [ css [ eventsListItemStyle ] ]
         [ a [ css [ eventLinkStyle ], href (TransRoutes.toAbsoluteUrl (Event event.id)) ]
             [ article [ css [ eventStyle ] ]
@@ -167,6 +167,12 @@ viewEvent event timezone =
                             [ text (TransDate.humanDayFromPosix event.startDatetime) ]
                         , span [ css [ eventMonthStyle ] ]
                             [ text (TransDate.humanShortMonthFromPosix event.startDatetime) ]
+                        , case TransDate.maybeHumanYearFromPosix nowTime event.startDatetime of
+                            Just year ->
+                                span [ css [ eventYearStyle ] ] [ text year ]
+
+                            Nothing ->
+                                text ""
                         ]
                     ]
                 ]
@@ -251,6 +257,17 @@ eventMonthStyle =
         , textTransform uppercase
         , fontSize (rem 1.2)
         , fontWeight (int 900)
+        , letterSpacing (px 1.9)
+        , transition [ colorTransition ]
+        ]
+
+
+eventYearStyle : Style
+eventYearStyle =
+    batch
+        [ color white
+        , fontSize (rem 1)
+        , fontWeight (int 700)
         , letterSpacing (px 1.9)
         , transition [ colorTransition ]
         ]

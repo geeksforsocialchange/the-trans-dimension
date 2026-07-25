@@ -15,9 +15,30 @@ import Theme.RegionSelector exposing (Msg(..))
 import Time
 
 
-viewEventsPageHtml filter =
+viewEventsPageHtmlAtTime filter now =
     queryFromStyled
-        (EventsPage.viewEvents TestFixtures.events { filterByDate = Past, filterByRegion = filter, nowTime = Time.millisToPosix 1645466500000, timezone = Time.utc })
+        (EventsPage.viewEvents TestFixtures.events { filterByDate = Past, filterByRegion = filter, nowTime = now, timezone = Time.utc })
+
+
+viewEventsPageHtml filter =
+    -- Fixture events are in 2022, as is this time
+    viewEventsPageHtmlAtTime filter (Time.millisToPosix 1645466500000)
+
+
+yearSuite : Test
+yearSuite =
+    describe "Event list shows the year for events outside the current year"
+        [ test "Does not show the year for events in the current year" <|
+            \_ ->
+                viewEventsPageHtml 0
+                    |> Query.hasNot [ Selector.text "2022" ]
+        , test "Shows the year for events that are not in the current year" <|
+            \_ ->
+                -- 21 Feb 2026
+                viewEventsPageHtmlAtTime 0 (Time.millisToPosix 1771676800000)
+                    |> Query.findAll [ Selector.tag "li", Selector.containing [ Selector.text "2022" ] ]
+                    |> Query.count (Expect.equal 2)
+        ]
 
 
 suite : Test
