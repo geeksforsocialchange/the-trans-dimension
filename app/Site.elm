@@ -1,4 +1,4 @@
-module Site exposing (config)
+module Site exposing (config, manifest)
 
 import BackendTask exposing (BackendTask)
 import Constants exposing (canonicalUrl)
@@ -24,7 +24,11 @@ head : BackendTask FatalError (List Head.Tag)
 head =
     [ Head.sitemapLink "/sitemap.xml"
     , Head.appleTouchIcon (Just 180) (pathFromString "/favicons/apple-touch-icon.png")
-    , Head.metaName "msapplication-TileColor" (Head.raw "#ff7aa7")
+    , Head.nonLoadingNode "link"
+        [ ( "rel", Head.raw "mask-icon" )
+        , ( "href", Head.raw "/favicons/safari-pinned-tab.svg" )
+        , ( "color", Head.raw "#FF7AA7" )
+        ]
     , Head.metaName "theme-color" (Head.raw "#FF7AA7")
     ]
         ++ icons
