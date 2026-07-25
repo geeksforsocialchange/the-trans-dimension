@@ -34,7 +34,7 @@ view sharedData localModel =
     div [ css [ pageWrapperStyle ] ]
         [ viewIntro (t IndexIntroTitle) (t IndexIntroMessage) (t IndexIntroButtonText)
         , viewFeatured localModel.nowTime sharedData.timezone (Data.PlaceCal.Events.eventsWithPartners sharedData.events sharedData.partners) localModel.filterByRegion
-        , viewLatestNews (List.head sharedData.articles) (t IndexNewsHeader) (t IndexNewsButtonText)
+        , viewLatestNews sharedData.partners (List.head sharedData.articles) (t IndexNewsHeader) (t IndexNewsButtonText)
         ]
 
 
@@ -86,13 +86,13 @@ viewAllEventsButton =
         ]
 
 
-viewLatestNews : Maybe Data.PlaceCal.Articles.Article -> String -> String -> Html msg
-viewLatestNews maybeNewsItem title buttonText =
+viewLatestNews : List Data.PlaceCal.Partners.Partner -> Maybe Data.PlaceCal.Articles.Article -> String -> String -> Html msg
+viewLatestNews partnerList maybeNewsItem title buttonText =
     section [ css [ sectionStyle, Theme.Global.darkBlueBackgroundStyle, newsSectionStyle ] ]
         [ h2 [ css [ Theme.Global.smallFloatingTitleStyle ] ] [ text title ]
         , case maybeNewsItem of
             Just news ->
-                Theme.Page.News.viewNewsArticle news
+                Theme.Page.News.viewNewsArticle partnerList news
 
             Nothing ->
                 text ""

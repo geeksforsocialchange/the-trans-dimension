@@ -10,6 +10,7 @@ import BackendTask
 import Copy.Keys exposing (Key(..), Prefix(..))
 import Copy.Text exposing (t)
 import Data.PlaceCal.Articles
+import Data.PlaceCal.Partners
 import FatalError
 import Head
 import Helpers.TransRoutes
@@ -58,12 +59,12 @@ head : RouteBuilder.App Data ActionData RouteParams -> List Head.Tag
 head app =
     let
         article =
-            Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles app.sharedData.partners
+            Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles
     in
     Theme.PageTemplate.pageMetaTags
         { title = NewsItemTitle NoPrefix article.title
         , description =
-            NewsItemMetaDescription (Data.PlaceCal.Articles.summaryFromArticleBody article.body) (String.join " & " article.partnerIds)
+            NewsItemMetaDescription (Data.PlaceCal.Articles.summaryFromArticleBody article.body) (String.join " & " (Data.PlaceCal.Partners.partnerNamesFromIds app.sharedData.partners article.partnerIds))
         , imageSrc = Just article.imageSrc
         }
 
@@ -75,7 +76,7 @@ view :
 view app _ =
     let
         article =
-            Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles app.sharedData.partners
+            Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles
     in
     { title = t <| PageMetaTitle <| t (NewsItemTitle Prefixed article.title)
     , body =
@@ -84,7 +85,7 @@ view app _ =
             , title = t NewsTitle
             , bigText = { text = article.title, node = "h3" }
             , smallText = Nothing
-            , innerContent = Just (Theme.Page.NewsItem.viewArticle article)
+            , innerContent = Just (Theme.Page.NewsItem.viewArticle app.sharedData.partners article)
             , outerContent = Nothing
             }
         ]
