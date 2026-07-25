@@ -2,10 +2,12 @@ module Api exposing (routes)
 
 import ApiRoute exposing (ApiRoute)
 import BackendTask exposing (BackendTask)
-import Constants exposing (canonicalUrl)
+import Constants
 import FatalError exposing (FatalError)
 import Html exposing (Html)
+import Pages.Manifest
 import Route exposing (Route)
+import Site
 
 
 routes :
@@ -13,7 +15,11 @@ routes :
     -> (Maybe { indent : Int, newLines : Bool } -> Html Never -> String)
     -> List (ApiRoute ApiRoute.Response)
 routes getStaticRoutes htmlToString =
-    [ sitemap getStaticRoutes
+    -- Pages.Manifest.generator emits /manifest.json and adds the
+    -- <link rel="manifest"> global head tag for us.
+    [ Pages.Manifest.generator Constants.canonicalUrl
+        (BackendTask.succeed Site.manifest)
+    , sitemap getStaticRoutes
     , robots
     ]
 
@@ -71,11 +77,11 @@ onto the absolute paths that Route.toString produces.
 -}
 origin : String
 origin =
-    if String.endsWith "/" canonicalUrl then
-        String.dropRight 1 canonicalUrl
+    if String.endsWith "/" Constants.canonicalUrl then
+        String.dropRight 1 Constants.canonicalUrl
 
     else
-        canonicalUrl
+        Constants.canonicalUrl
 
 
 escapeXml : String -> String
