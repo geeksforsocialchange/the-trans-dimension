@@ -9,6 +9,7 @@ module Helpers.TransDate exposing
     , isOnOrBeforeDate
     , isSameDay
     , isoDateStringDecoder
+    , maybeHumanYearFromPosix
     )
 
 import DateFormat
@@ -62,6 +63,12 @@ isSameDay aDay anotherDay =
         == Time.toMonth Time.utc anotherDay
         && Time.toYear Time.utc aDay
         == Time.toYear Time.utc anotherDay
+
+
+isSameYear : Time.Posix -> Time.Posix -> Bool
+isSameYear aDay anotherDay =
+    Time.toYear convertedIsoDateZone aDay
+        == Time.toYear convertedIsoDateZone anotherDay
 
 
 isOnOrBeforeDate : Time.Posix -> Time.Posix -> Bool
@@ -155,6 +162,16 @@ humanTimeFromPosix timestamp timezone =
             ]
             timezone
             timestamp
+
+
+maybeHumanYearFromPosix : Time.Posix -> Time.Posix -> Maybe String
+maybeHumanYearFromPosix nowTime timestamp =
+    -- Only worth showing the year if it isn't the year we are currently in
+    if timestamp == defaultPosix || isSameYear nowTime timestamp then
+        Nothing
+
+    else
+        Just (humanYearFromPosix timestamp)
 
 
 humanYearFromPosix : Time.Posix -> String
