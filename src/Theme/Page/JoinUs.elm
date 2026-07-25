@@ -94,6 +94,7 @@ type Msg
 validateForm : FormInput -> List Msg
 validateForm formData =
     let
+        fieldsToError : List Msg
         fieldsToError =
             [ { isEmpty = formData.name.value == "", errorCmd = ErrorName FieldRequired }
             , { isEmpty = formData.email.value == "", errorCmd = ErrorEmail FieldRequired }
@@ -208,9 +209,11 @@ update _ _ msg ({ userInput } as model) =
     case msg of
         UpdateName newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.name
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -218,9 +221,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateEmail newString ->
             let
+                oldField : FormInputField
                 oldField =
                     model.userInput.email
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -228,9 +233,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdatePhone newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.phone
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -238,9 +245,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateJob newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.job
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -248,9 +257,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateOrg newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.org
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -258,9 +269,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateAddress newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.address
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -268,9 +281,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateRingBack newBool ->
             let
+                oldField : Checkbox
                 oldField =
                     userInput.ringBack
 
+                newField : Checkbox
                 newField =
                     { oldField | value = newBool }
             in
@@ -278,9 +293,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateMoreInfo newBool ->
             let
+                oldField : Checkbox
                 oldField =
                     userInput.moreInfo
 
+                newField : Checkbox
                 newField =
                     { oldField | value = newBool }
             in
@@ -288,9 +305,11 @@ update _ _ msg ({ userInput } as model) =
 
         UpdateMessage newString ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.message
 
+                newField : FormInputField
                 newField =
                     { oldField | value = newString }
             in
@@ -298,9 +317,11 @@ update _ _ msg ({ userInput } as model) =
 
         ErrorName errorType ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.name
 
+                newField : FormInputField
                 newField =
                     { oldField | error = Just errorType }
             in
@@ -308,9 +329,11 @@ update _ _ msg ({ userInput } as model) =
 
         ErrorEmail errorType ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.email
 
+                newField : FormInputField
                 newField =
                     { oldField | error = Just errorType }
             in
@@ -318,9 +341,11 @@ update _ _ msg ({ userInput } as model) =
 
         ErrorMessage errorType ->
             let
+                oldField : FormInputField
                 oldField =
                     userInput.message
 
+                newField : FormInputField
                 newField =
                     { oldField | error = Just errorType }
             in

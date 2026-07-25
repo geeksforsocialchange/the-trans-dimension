@@ -2,6 +2,7 @@ module Page.NewsTests exposing (..)
 
 import Copy.Keys exposing (Key(..))
 import Copy.Text exposing (t)
+import Data.PlaceCal.Articles
 import Expect
 import Html
 import Test exposing (Test, describe, test)
@@ -12,6 +13,7 @@ import TestUtils exposing (queryFromStyled)
 import Theme.Page.News
 
 
+viewNewsListHtml : List Data.PlaceCal.Articles.Article -> Query.Single msg
 viewNewsListHtml newsList =
     queryFromStyled
         (Theme.Page.News.viewNewsList newsList)

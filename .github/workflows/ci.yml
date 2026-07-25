@@ -1,0 +1,61 @@
+name: CI
+
+# Lint and test on every PR and push to main. Before this existed nothing ran
+# automatically, which is how the elm-review version mismatch in #542 went
+# unnoticed — `npm run review` had been a silent no-op.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A new push to the same branch makes the in-flight run redundant.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # elm-tooling installs the elm/elm-format/elm-test-rs binaries into
+      # node_modules/.bin via the postinstall hook; cache them alongside the
+      # compiler's package downloads to keep runs quick.
+      - name: Cache Elm
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elm
+            ~/.cache/elm-tooling
+            elm-stuff
+          key: elm-${{ runner.os }}-${{ hashFiles('elm.json', 'elm-tooling.json', 'review/elm.json') }}
+          restore-keys: elm-${{ runner.os }}-
+
+      - run: npm ci
+
+      # Runs before src/Constants.elm is generated, so it only ever checks
+      # committed files. elm-constants does not emit elm-format-clean output
+      # and the file is gitignored, so linting it would fail every run.
+      - name: elm-format
+        run: npx elm-format --validate src app tests
+
+      # elm-constants generates src/Constants.elm from .env, and both
+      # elm-review and `npm test` need that file to exist to compile.
+      # The example values are fine for lint and tests — no secrets required.
+      - name: Generate Constants.elm
+        run: |
+          cp .env.example .env
+          npx elm-constants
+
+      - name: elm-review
+        run: npm run review
+
+      - name: elm-test
+        run: npm test

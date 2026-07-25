@@ -1,6 +1,5 @@
-module TestUtils exposing (queryFromStyled, queryFromStyledList)
+module TestUtils exposing (queryFromStyled)
 
-import Html
 import Html.Styled as Styled
 import Test.Html.Query as Query
 
@@ -12,10 +11,4 @@ After that we can use the testing libraries on our views.
 queryFromStyled : Styled.Html msg -> Query.Single msg
 queryFromStyled styledHtml =
     Styled.toUnstyled styledHtml
-        |> Query.fromHtml
-
-
-queryFromStyledList : List (Styled.Html msg) -> Query.Single msg
-queryFromStyledList body =
-    Html.div [] (List.map (\item -> Styled.toUnstyled item) body)
         |> Query.fromHtml

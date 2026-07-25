@@ -21,7 +21,6 @@ type Filter
     | Past
     | Future
     | None
-    | Unknown
 
 
 type Msg
@@ -124,9 +123,6 @@ filterEvents now filter eventList =
             Data.PlaceCal.Events.afterDate eventList now
 
         None ->
-            eventList
-
-        Unknown ->
             eventList
 
 
