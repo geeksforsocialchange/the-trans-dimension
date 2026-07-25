@@ -134,10 +134,7 @@ view app shared model =
             sharedDataWithEvents =
                 { events = app.data.events
                 , partners = sharedData.partners
-                , articles =
-                    Data.PlaceCal.Articles.replacePartnerIdWithName
-                        sharedData.articles
-                        sharedData.partners
+                , articles = sharedData.articles
                 , time = sharedData.time
                 , timezone = shared.timezone
                 }
