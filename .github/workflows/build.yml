@@ -1,10 +1,26 @@
+name: Trigger site rebuild
+
+# The site is statically built, so PlaceCal events only appear after a deploy.
+# This fires the Cloudflare Pages deploy hook every hour.
+
 on:
   schedule:
     - cron: "0 * * * *"
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - run:
-          curl -X POST "https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/fe5b4ebb-7029-4c5a-8cd7-4b933dd7bdc0"
+      - name: Fire Cloudflare Pages deploy hook
+        env:
+          # Falls back to the hook URL that was previously inline here, so this
+          # keeps working if the secret has not been set yet.
+          DEPLOY_HOOK: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK || 'https://api.cloudflare.com/client/v4/pages/webhooks/deploy_hooks/fe5b4ebb-7029-4c5a-8cd7-4b933dd7bdc0' }}
+        run: |
+          set -euo pipefail
+          response=$(curl -sS --fail-with-body -X POST "$DEPLOY_HOOK")
+          echo "$response"
+          # Cloudflare can return HTTP 200 with success:false, so check the body
+          # too — otherwise a revoked hook looks like a green run forever.
+          echo "$response" | jq -e '.success == true' > /dev/null
