@@ -85,10 +85,6 @@ viewEventsList localModel eventsList maybeListLength =
 
                 Just numberOfEvents ->
                     Data.PlaceCal.Events.nextNEvents numberOfEvents paginatedEventsInRegion localModel.nowTime
-
-        upcomingEventTime : Maybe Time.Posix
-        upcomingEventTime =
-            Data.PlaceCal.Events.nextEventStartTime eventsList localModel.filterByRegion localModel.nowTime
     in
     div []
         [ if List.length filteredEvents > 0 then
@@ -97,6 +93,11 @@ viewEventsList localModel eventsList maybeListLength =
                 |> Html.Styled.map fromPaginatorMsg
 
           else
+            let
+                upcomingEventTime : Maybe Time.Posix
+                upcomingEventTime =
+                    Data.PlaceCal.Events.nextEventStartTime eventsList localModel.filterByRegion localModel.nowTime
+            in
             case upcomingEventTime of
                 Just eventTime ->
                     div [ css [ displayFlex, flexDirection column, alignItems center ] ]

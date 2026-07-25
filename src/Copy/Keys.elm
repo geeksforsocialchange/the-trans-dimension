@@ -66,7 +66,6 @@ type Key
     | EventsTitle
     | EventsMetaDescription
     | EventsSummary
-    | EventsSubHeading
     | EventsEmptyTextAll
     | EventsEmptyText
     | PreviousEventsEmptyTextAll
@@ -125,12 +124,7 @@ type Key
       --- News Single Article Page
     | NewsItemTitle Prefix String
     | NewsItemMetaDescription String String
-    | NewsItemReturnButton
     | NewsItemReadMore
       --- Privacy
     | PrivacyTitle
     | PrivacyMetaDescription
-      --- 404
-    | ErrorTitle
-    | ErrorMessage
-    | ErrorButtonText

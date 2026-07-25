@@ -61,6 +61,7 @@ manifest =
         |> Manifest.withThemeColor Theme.Global.pinkRgbColor
 
 
+pathFromString : String -> Pages.Url.Url
 pathFromString srcString =
     Pages.Url.fromPath <| UrlPath.fromString srcString
 

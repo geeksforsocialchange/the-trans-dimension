@@ -180,9 +180,6 @@ t key =
         EventsSummary ->
             "Upcoming events & activities for you."
 
-        EventsSubHeading ->
-            "Upcoming events"
-
         EventsEmptyTextAll ->
             "There are no upcoming events. Check back for updates!"
 
@@ -358,25 +355,12 @@ t key =
         NewsItemMetaDescription title author ->
             title ++ " - by " ++ author
 
-        NewsItemReturnButton ->
-            "Go back to news"
-
         --- Privacy Page (note this also comes from markdown)
         PrivacyTitle ->
             "Privacy"
 
         PrivacyMetaDescription ->
             "Privacy information for The Trans Dimension website."
-
-        --- 404 Page
-        ErrorTitle ->
-            "Error 404"
-
-        ErrorMessage ->
-            "This page could not be found."
-
-        ErrorButtonText ->
-            "Back to home"
 
 
 urlRecombiner : Maybe Url.Url -> String

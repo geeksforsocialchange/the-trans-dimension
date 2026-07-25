@@ -1,6 +1,5 @@
 module Page.EventsTests exposing (..)
 
-import Copy.Keys exposing (Key(..))
 import Expect
 import Messages exposing (Msg(..))
 import Test exposing (Test, describe, test)
@@ -15,6 +14,7 @@ import Theme.RegionSelector exposing (Msg(..))
 import Time
 
 
+viewEventsPageHtml : Int -> Query.Single EventsPage.Msg
 viewEventsPageHtml filter =
     queryFromStyled
         (EventsPage.viewEvents TestFixtures.events { filterByDate = Past, filterByRegion = filter, nowTime = Time.millisToPosix 1645466500000, timezone = Time.utc })

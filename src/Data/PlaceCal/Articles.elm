@@ -138,6 +138,7 @@ replacePartnerIdWithName articleData partnerData =
         articleData
 
 
+addStockImage : Article -> Json.Decode.Decoder Article
 addStockImage article =
     Json.Decode.succeed
         { article

@@ -1,4 +1,4 @@
-module Messages exposing (Msg(..), SharedMsg(..))
+module Messages exposing (Msg(..))
 
 import Time
 import UrlPath exposing (UrlPath)
@@ -13,11 +13,6 @@ type Msg
       -- Header
     | ToggleMenu
       -- Shared
-    | SharedMsg SharedMsg
     | SetRegion Int
     | UrlChanged String
     | GetTimeZone Time.Zone
-
-
-type SharedMsg
-    = NoOp

@@ -123,7 +123,7 @@ filterFromQueryString : String -> Maybe Int
 filterFromQueryString queryString =
     partnershipTagList
         |> List.filter (\tagInfo -> String.toLower tagInfo.name == String.toLower queryString)
-        |> Maybe.withDefault List.head Nothing
+        |> List.head
         |> maybeMatchTagId
 
 
