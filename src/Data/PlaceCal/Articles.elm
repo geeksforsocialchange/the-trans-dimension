@@ -1,4 +1,4 @@
-module Data.PlaceCal.Articles exposing (Article, articleFromSlug, articlesData, replacePartnerIdWithName, summaryFromArticleBody)
+module Data.PlaceCal.Articles exposing (Article, articleFromSlug, articlesData, articlesWithPartnershipPartners, replacePartnerIdWithName, summaryFromArticleBody)
 
 import Array
 import BackendTask
@@ -42,6 +42,18 @@ emptyArticle =
 
 articlesData : BackendTask.BackendTask { fatal : FatalError.FatalError, recoverable : BackendTask.Custom.Error } AllArticlesResponse
 articlesData =
+    BackendTask.map2
+        (\articles partners ->
+            { allArticles = articlesWithPartnershipPartners partners articles }
+        )
+        rawArticlesData
+        (Data.PlaceCal.Partners.partnersData
+            |> BackendTask.map .allPartners
+        )
+
+
+rawArticlesData : BackendTask.BackendTask { fatal : FatalError.FatalError, recoverable : BackendTask.Custom.Error } (List Article)
+rawArticlesData =
     BackendTask.combine
         (List.map
             (\partnershipTagInt ->
@@ -55,7 +67,6 @@ articlesData =
         |> BackendTask.map (List.map .allArticles)
         |> BackendTask.map List.concat
         |> BackendTask.map sortArticlesByDate
-        |> BackendTask.map (\articles -> { allArticles = articles })
 
 
 allArticlesQuery : String -> Json.Encode.Value
@@ -127,6 +138,26 @@ type alias ProviderId =
 
 type alias AllArticlesResponse =
     { allArticles : List Article }
+
+
+articlesWithPartnershipPartners : List Data.PlaceCal.Partners.Partner -> List Article -> List Article
+articlesWithPartnershipPartners partnerData articleData =
+    -- News is only shown if at least one of its partners is in the partnership.
+    -- Partners from outside the partnership are dropped from the article's
+    -- partner list, since we have no page to link them to & no name to show.
+    articleData
+        |> List.map
+            (\article ->
+                { article
+                    | partnerIds =
+                        List.filter
+                            (\partnerId ->
+                                List.any (\partner -> partner.id == partnerId) partnerData
+                            )
+                            article.partnerIds
+                }
+            )
+        |> List.filter (\article -> not (List.isEmpty article.partnerIds))
 
 
 replacePartnerIdWithName : List Article -> List Data.PlaceCal.Partners.Partner -> List Article
