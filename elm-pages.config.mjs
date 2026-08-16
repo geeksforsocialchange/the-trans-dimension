@@ -9,6 +9,21 @@ export default {
   <link rel="stylesheet" href="/style.css" />
   <meta name="generator" content="elm-pages v${context.cliVersion}" />
   <script defer="defer" data-domain="transdimension.uk" src="https://plausible.io/js/script.outbound-links.js"></script>
+  <!-- Matomo (stats.gfsc.community, site 2). Runs alongside Plausible for the parallel run.
+       enableLinkTracking replaces Plausible's outbound-links extension. -->
+  <script>
+    var _paq = (window._paq = window._paq || []);
+    _paq.push(["disableCookies"]);
+    _paq.push(["trackPageView"]);
+    _paq.push(["enableLinkTracking"]);
+    (function () {
+      var u = "https://stats.gfsc.community/";
+      _paq.push(["setTrackerUrl", u + "matomo.php"]);
+      _paq.push(["setSiteId", "2"]);
+      var d = document, g = d.createElement("script"), s = d.getElementsByTagName("script")[0];
+      g.async = true; g.src = u + "matomo.js"; s.parentNode.insertBefore(g, s);
+    })();
+  </script>
   <link rel="preconnect" href="https://use.typekit.net" crossorigin />
   <link rel="preconnect" href="https://p.typekit.net" crossorigin />
   <link rel="preload" as="style" href="https://use.typekit.net/qwi3qrw.css" />
