@@ -8,9 +8,8 @@ export default {
     return `
   <link rel="stylesheet" href="/style.css" />
   <meta name="generator" content="elm-pages v${context.cliVersion}" />
-  <script defer="defer" data-domain="transdimension.uk" src="https://plausible.io/js/script.outbound-links.js"></script>
-  <!-- Matomo (stats.gfsc.community, site 2). Runs alongside Plausible for the parallel run.
-       enableLinkTracking replaces Plausible's outbound-links extension. -->
+  <!-- Matomo (stats.gfsc.community, site 2), cookieless.
+       enableLinkTracking covers outbound link clicks. -->
   <script>
     var _paq = (window._paq = window._paq || []);
     _paq.push(["disableCookies"]);
