@@ -54,7 +54,10 @@ init :
 init app shared =
     ( { filterByDate = Theme.Paginator.None
       , filterByRegion = Maybe.withDefault 0 shared.filterParam
-      , nowTime = Time.millisToPosix 0
+      , -- Start from the build time rather than the epoch, so pre-rendered
+        -- HTML compares events against the right year. Task.perform below
+        -- replaces this with the real current time once we hydrate.
+        nowTime = app.sharedData.time
       , timezone = utc
       , viewportWidth = 320
       }

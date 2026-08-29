@@ -87,7 +87,10 @@ init app _ =
     in
     ( { filterByDate = Theme.Paginator.None
       , filterByRegion = 0
-      , nowTime = Time.millisToPosix 0
+      , -- Start from the build time rather than the epoch, so pre-rendered
+        -- HTML compares events against the right year. Task.perform above
+        -- replaces this with the real current time once we hydrate.
+        nowTime = app.sharedData.time
       , viewportWidth = 320
       , urlFragment = urlFragment
       , timezone = Time.utc
