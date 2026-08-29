@@ -19,6 +19,7 @@ viewPartners :
     -> Html Theme.RegionSelector.Msg
 viewPartners partnerList model =
     let
+        filteredPartnerList : List Data.PlaceCal.Partners.Partner
         filteredPartnerList =
             Data.PlaceCal.Partners.partnersFromRegionId partnerList model.filterByRegion
     in
@@ -66,9 +67,11 @@ viewPartner partner =
 viewMap : List Data.PlaceCal.Partners.Partner -> Html msg
 viewMap partnerList =
     let
+        allowOnlyPartnersWithLocation : Data.PlaceCal.Partners.Partner -> Bool
         allowOnlyPartnersWithLocation partner =
             List.isEmpty partner.areasServed && (partner.maybeGeo /= Nothing)
 
+        partnerToGeo : Data.PlaceCal.Partners.Partner -> Data.PlaceCal.Partners.Geo
         partnerToGeo partner =
             case partner.maybeGeo of
                 Just geo ->

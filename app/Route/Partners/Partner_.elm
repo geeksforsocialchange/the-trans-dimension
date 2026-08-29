@@ -115,7 +115,7 @@ update :
     -> Msg
     -> Model
     -> ( Model, Effect.Effect Msg )
-update app _ msg model =
+update _ _ msg model =
     case msg of
         Theme.Page.Events.PaginatorMsg submsg ->
             case submsg of
@@ -206,6 +206,7 @@ data _ =
 head : RouteBuilder.App Data ActionData RouteParams -> List Head.Tag
 head app =
     let
+        partner : Data.PlaceCal.Partners.Partner
         partner =
             Data.PlaceCal.Partners.partnerFromSlug app.sharedData.partners app.routeParams.partner
     in
@@ -223,6 +224,7 @@ view :
     -> View.View (PagesMsg.PagesMsg Msg)
 view app _ model =
     let
+        aPartner : Data.PlaceCal.Partners.Partner
         aPartner =
             Data.PlaceCal.Partners.partnerFromSlug app.sharedData.partners app.routeParams.partner
     in

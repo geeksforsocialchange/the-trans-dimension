@@ -61,7 +61,7 @@ update :
     -> Msg
     -> Model
     -> ( Model, Effect.Effect Msg, Maybe Shared.Msg )
-update app _ msg model =
+update _ _ msg model =
     case msg of
         RegionSelectorMsg submsg ->
             case submsg of
@@ -128,9 +128,11 @@ view app shared model =
     { title = t SiteTitle
     , body =
         let
+            sharedData : Shared.Data
             sharedData =
                 app.sharedData
 
+            sharedDataWithEvents : { events : List Data.PlaceCal.Events.Event, partners : List Data.PlaceCal.Partners.Partner, articles : List Data.PlaceCal.Articles.Article, time : Time.Posix, timezone : Time.Zone }
             sharedDataWithEvents =
                 { events = app.data.events
                 , partners = sharedData.partners

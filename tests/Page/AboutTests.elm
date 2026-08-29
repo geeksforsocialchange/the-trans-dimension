@@ -2,20 +2,24 @@ module Page.AboutTests exposing (..)
 
 import Expect
 import Html
+import Markdown.Block
 import Test exposing (Test, describe, test)
 import Test.Html.Query as Query
 import Test.Html.Selector as Selector
 import TestUtils exposing (queryFromStyled)
 import Theme.Page.About
+import Theme.PageTemplate
 import Theme.TransMarkdown
 
 
+introMarkdown : List Markdown.Block.Block
 introMarkdown =
     "# About us"
         |> Theme.TransMarkdown.markdownToBlocks
         |> fromResult
 
 
+fromResult : Result String (List Markdown.Block.Block) -> List Markdown.Block.Block
 fromResult markdownResult =
     case markdownResult of
         Ok markdownBlocks ->
@@ -25,6 +29,7 @@ fromResult markdownResult =
             []
 
 
+sectionData : { accessibilityData : Theme.PageTemplate.SectionWithTextHeader, makersData : List { name : String, url : String, logo : String, body : List Markdown.Block.Block }, aboutPlaceCalData : Theme.PageTemplate.SectionWithImageHeader }
 sectionData =
     { accessibilityData =
         { title = "Accessibility"

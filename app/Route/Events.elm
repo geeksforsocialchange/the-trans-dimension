@@ -11,7 +11,6 @@ import Browser.Dom
 import Copy.Keys exposing (Key(..))
 import Copy.Text exposing (t)
 import Data.PlaceCal.Events
-import Data.PlaceCal.Partners
 import Effect
 import FatalError
 import Head
@@ -51,7 +50,7 @@ init :
     RouteBuilder.App Data ActionData RouteParams
     -> Shared.Model
     -> ( Model, Effect.Effect Msg )
-init app shared =
+init _ shared =
     ( { filterByDate = Theme.Paginator.None
       , filterByRegion = Maybe.withDefault 0 shared.filterParam
       , nowTime = Time.millisToPosix 0
@@ -72,7 +71,7 @@ update :
     -> Msg
     -> Model
     -> ( Model, Effect.Effect Msg, Maybe Shared.Msg )
-update app _ msg model =
+update _ _ msg model =
     case msg of
         Theme.Page.Events.PaginatorMsg submsg ->
             case submsg of

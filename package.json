@@ -6,8 +6,8 @@
     "start": "node scripts/set-build-dates.mjs elm-constants && elm-pages dev --port 3030",
     "build": "node scripts/set-build-dates.mjs",
     "format": "elm-format src tests",
-    "review": "elm-review src app",
-    "review-fix": "elm-review --fix src app",
+    "review": "elm-review --ignore-dirs .elm-pages",
+    "review-fix": "elm-review --fix --ignore-dirs .elm-pages",
     "test": "elm-constants && elm-test-rs",
     "prepare": "husky"
   },

@@ -57,6 +57,7 @@ data _ =
 head : RouteBuilder.App Data ActionData RouteParams -> List Head.Tag
 head app =
     let
+        article : Data.PlaceCal.Articles.Article
         article =
             Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles app.sharedData.partners
     in
@@ -74,6 +75,7 @@ view :
     -> View.View (PagesMsg.PagesMsg Msg)
 view app _ =
     let
+        article : Data.PlaceCal.Articles.Article
         article =
             Data.PlaceCal.Articles.articleFromSlug app.routeParams.newsItem app.sharedData.articles app.sharedData.partners
     in

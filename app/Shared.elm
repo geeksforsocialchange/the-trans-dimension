@@ -77,7 +77,7 @@ init :
             , pageUrl : Maybe PageUrl
             }
     -> ( Model, Effect Msg )
-init flags maybePagePath =
+init _ maybePagePath =
     ( { showMobileMenu = False
       , filterParam = filterFromPath maybePagePath
       , timezone = Time.utc
@@ -115,9 +115,11 @@ update msg model =
     case msg of
         OnPageChange pagePath ->
             let
+                route : Maybe Route.Route
                 route =
                     Route.segmentsToRoute pagePath.path
 
+                baseUpdate : ( Model, Effect Msg )
                 baseUpdate =
                     ( { model | showMobileMenu = False }, Effect.none )
             in
@@ -163,16 +165,13 @@ update msg model =
         ToggleMenu ->
             ( { model | showMobileMenu = not model.showMobileMenu }, Effect.none )
 
-        -- Shared
-        SharedMsg _ ->
-            ( model, Effect.none )
-
         -- Update region filter
         SetRegion tagId ->
             updateRegionFilter (Just tagId) ( model, Effect.none )
 
         UrlChanged url ->
             let
+                queryParamsFromUrl : String
                 queryParamsFromUrl =
                     case String.split "?" url of
                         [ _, queryRegion ] ->
@@ -181,6 +180,7 @@ update msg model =
                         _ ->
                             ""
 
+                maybeRegionId : Maybe Int
                 maybeRegionId =
                     Data.PlaceCal.Partners.filterFromQueryString (filterFromQueryParams queryParamsFromUrl)
             in
@@ -193,6 +193,7 @@ update msg model =
 updateRegionFilter : Maybe Int -> ( Model, Effect Msg ) -> ( Model, Effect Msg )
 updateRegionFilter maybeRegionId ( model, effect ) =
     let
+        newQuery : String
         newQuery =
             regionFilterQuery { model | filterParam = maybeRegionId }
     in
@@ -202,6 +203,7 @@ updateRegionFilter maybeRegionId ( model, effect ) =
 regionFilterQuery : Model -> String
 regionFilterQuery model =
     let
+        selectedRegionName : Maybe String
         selectedRegionName =
             model.filterParam
                 |> Maybe.andThen Data.PlaceCal.Partners.getTagInfoById

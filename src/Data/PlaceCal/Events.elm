@@ -158,8 +158,7 @@ nextEventStartTime : List Event -> Int -> Time.Posix -> Maybe Time.Posix
 nextEventStartTime eventList tagId nowTime =
     eventsFromRegionId (afterDate eventList nowTime) tagId
         |> List.map (\event -> Time.posixToMillis event.startDatetime)
-        |> List.sort
-        |> List.head
+        |> List.minimum
         |> Maybe.map Time.millisToPosix
 
 

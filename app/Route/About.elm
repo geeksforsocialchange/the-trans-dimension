@@ -6,6 +6,7 @@ module Route.About exposing
 {-|
 
 @docs Model, Msg, RouteParams, route, Data, ActionData
+@docs Maker
 
 -}
 

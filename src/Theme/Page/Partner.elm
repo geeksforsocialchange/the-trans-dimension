@@ -72,9 +72,11 @@ viewPartnerEvents :
     -> Html Theme.Page.Events.Msg
 viewPartnerEvents events localModel partner =
     let
+        eventAreaTitle : Html Theme.Page.Events.Msg
         eventAreaTitle =
             h3 [ css [ smallInlineTitleStyle, color white ] ] [ text (t (PartnerUpcomingEventsText partner.name)) ]
 
+        futureEvents : List Data.PlaceCal.Events.Event
         futureEvents =
             Data.PlaceCal.Events.afterDate events localModel.nowTime
     in
@@ -96,6 +98,7 @@ viewPartnerEvents events localModel partner =
 
          else
             let
+                pastEvents : List Data.PlaceCal.Events.Event
                 pastEvents =
                     Data.PlaceCal.Events.onOrBeforeDate events localModel.nowTime
             in

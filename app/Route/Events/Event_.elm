@@ -72,6 +72,7 @@ pages =
 head : RouteBuilder.App Data ActionData RouteParams -> List Head.Tag
 head app =
     let
+        event : Data.PlaceCal.Events.Event
         event =
             app.data
                 |> eventWithPartner app.sharedData.partners
@@ -86,12 +87,14 @@ head app =
 eventMetaTagTitle : Data.PlaceCal.Events.Event -> String
 eventMetaTagTitle event =
     let
+        eventDay : String
         eventDay =
             TransDate.humanDayDateMonthFromPosix event.startDatetime
 
         ( eventHourStart, eventHourEnd ) =
             ( TransDate.humanTimeFromPosix event.startDatetime utc, TransDate.humanTimeFromPosix event.endDatetime utc )
 
+        partnerName : String
         partnerName =
             event.partner.name |> Maybe.withDefault ""
     in

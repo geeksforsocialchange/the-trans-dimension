@@ -41,6 +41,8 @@ config =
     , NoDebug.TodoOrToString.rule
         |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoExposingEverything.rule
+        -- elm-test suites conventionally expose everything.
+        |> Rule.ignoreErrorsForDirectories [ "tests/" ]
     , NoImportingEverything.rule []
     , NoMissingTypeAnnotation.rule
     , NoMissingTypeAnnotationInLetIn.rule
@@ -48,6 +50,10 @@ config =
     , NoSimpleLetBody.rule
     , NoPrematureLetComputation.rule
     , NoUnused.CustomTypeConstructors.rule []
+        -- elm-pages requires an ErrorPage.Msg type, and Elm has no way to
+        -- declare a custom type with zero constructors, so this placeholder
+        -- has to stay until the error page grows a real message.
+        |> Rule.ignoreErrorsForFiles [ "app/ErrorPage.elm" ]
     , NoUnused.CustomTypeConstructorArgs.rule
     , NoUnused.Dependencies.rule
     , NoUnused.Exports.rule
