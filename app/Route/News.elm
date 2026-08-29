@@ -78,7 +78,8 @@ view app _ =
             , outerContent =
                 Just
                     (Theme.Page.News.viewNewsList
-                        (Data.PlaceCal.Articles.replacePartnerIdWithName app.sharedData.articles app.sharedData.partners)
+                        app.sharedData.partners
+                        app.sharedData.articles
                     )
             }
         ]

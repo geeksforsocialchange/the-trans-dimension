@@ -3,23 +3,20 @@ module Theme.Page.NewsItem exposing (viewArticle)
 import Css exposing (Style, after, auto, batch, block, bold, borderRadius, center, display, firstChild, fontSize, fontWeight, height, margin, margin2, margin4, marginTop, maxWidth, pct, property, px, rem, textAlign, width)
 import Css.Global exposing (descendants, typeSelector)
 import Data.PlaceCal.Articles
+import Data.PlaceCal.Partners
 import Helpers.TransDate as TransDate
 import Html.Styled exposing (Html, article, div, figure, img, p, span, text, time)
 import Html.Styled.Attributes exposing (alt, css, src)
 import Theme.Global exposing (withMediaSmallDesktopUp, withMediaTabletLandscapeUp, withMediaTabletPortraitUp)
+import Theme.Page.News
 import Theme.TransMarkdown as TransMarkdown
 
 
-viewArticle : Data.PlaceCal.Articles.Article -> Html msg
-viewArticle newsItem =
+viewArticle : List Data.PlaceCal.Partners.Partner -> Data.PlaceCal.Articles.Article -> Html msg
+viewArticle partnerList newsItem =
     article [ css [ articleStyle ] ]
         [ p [ css [ articleMetaStyle ] ]
-            [ if List.length newsItem.partnerIds > 0 then
-                span [ css [ newsItemAuthorStyle ] ]
-                    [ text (String.join ", " newsItem.partnerIds) ]
-
-              else
-                text ""
+            [ Theme.Page.News.viewPartnerLinks partnerList newsItem.partnerIds
             , time [] [ text (TransDate.humanDateFromPosix newsItem.publishedDatetime) ]
             ]
         , articleImage newsItem.imageSrc

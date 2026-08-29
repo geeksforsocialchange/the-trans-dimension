@@ -1,4 +1,4 @@
-module Data.PlaceCal.Articles exposing (Article, articleFromSlug, articlesData, replacePartnerIdWithName, summaryFromArticleBody)
+module Data.PlaceCal.Articles exposing (Article, articleFromSlug, articlesData, summaryFromArticleBody)
 
 import Array
 import BackendTask
@@ -129,15 +129,6 @@ type alias AllArticlesResponse =
     { allArticles : List Article }
 
 
-replacePartnerIdWithName : List Article -> List Data.PlaceCal.Partners.Partner -> List Article
-replacePartnerIdWithName articleData partnerData =
-    List.map
-        (\article ->
-            { article | partnerIds = Data.PlaceCal.Partners.partnerNamesFromIds partnerData article.partnerIds }
-        )
-        articleData
-
-
 addStockImage article =
     Json.Decode.succeed
         { article
@@ -170,11 +161,11 @@ stockImages =
         [ 1, 2, 3, 4, 5, 6 ]
 
 
-articleFromSlug : String -> List Article -> List Data.PlaceCal.Partners.Partner -> Article
-articleFromSlug slug allArticles allPartners =
+articleFromSlug : String -> List Article -> Article
+articleFromSlug slug allArticles =
     List.filter
         (\article -> Helpers.TransRoutes.stringToSlug article.title == slug)
-        (replacePartnerIdWithName allArticles allPartners)
+        allArticles
         |> List.head
         |> Maybe.withDefault emptyArticle
 

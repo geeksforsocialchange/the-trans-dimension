@@ -13,6 +13,7 @@ import Effect
 import FatalError
 import Head
 import Html.Styled
+import Messages exposing (Msg(..))
 import PagesMsg
 import RouteBuilder
 import Shared
@@ -21,7 +22,6 @@ import Theme.PageTemplate
 import Theme.RegionSelector exposing (Msg(..))
 import UrlPath
 import View
-import Messages exposing (Msg(..))
 
 
 type alias Model =
