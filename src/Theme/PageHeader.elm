@@ -2,7 +2,7 @@ module Theme.PageHeader exposing (viewPageHeader)
 
 import Copy.Keys exposing (Key(..))
 import Copy.Text exposing (t)
-import Css exposing (Style, alignItems, alignSelf, auto, backgroundColor, batch, block, border, borderBottomColor, borderBottomStyle, borderBottomWidth, borderBox, borderRadius, boxSizing, center, color, column, columnReverse, cursor, display, displayFlex, flexDirection, flexGrow, flexWrap, fontSize, fontWeight, hover, int, justifyContent, lighter, margin, margin2, marginLeft, marginRight, none, padding, padding2, padding4, paddingBottom, paddingLeft, pointer, rem, row, solid, spaceBetween, textAlign, textDecoration, transparent, unset, wrap, zero)
+import Css exposing (Style, alignItems, alignSelf, auto, backgroundColor, batch, block, border, borderBottomColor, borderBottomStyle, borderBottomWidth, borderBox, borderRadius, boxSizing, center, color, column, columnReverse, cursor, display, displayFlex, flexDirection, flexGrow, flexWrap, focus, fontSize, fontWeight, hover, inlineBlock, int, justifyContent, lighter, margin, margin2, marginLeft, marginRight, none, outline3, padding, padding2, padding4, paddingBottom, paddingLeft, pointer, px, rem, row, solid, spaceBetween, textAlign, textDecoration, transparent, unset, wrap, zero)
 import Css.Transitions exposing (transition)
 import Helpers.TransRoutes as TransRoutes exposing (..)
 import Html.Styled exposing (Html, a, button, div, h1, header, li, nav, span, text, ul)
@@ -40,8 +40,13 @@ viewPageHeaderTitle : Html Msg
 viewPageHeaderTitle =
     div [ css [ titleStyle ] ]
         [ h1 []
-            [ span [ css [ screenReaderOnly ] ] [ text (t SiteTitle ++ ", " ++ t SiteStrapline) ]
-            , span [ attribute "aria-hidden" "true" ] [ Theme.Logo.view ]
+            [ a
+                [ href (TransRoutes.toAbsoluteUrl TransRoutes.Home)
+                , css [ Theme.Logo.logoParentStyle, titleLinkStyle ]
+                ]
+                [ span [ attribute "aria-hidden" "true" ] [ Theme.Logo.view ]
+                , span [ css [ screenReaderOnly ] ] [ text (t SiteTitle ++ ", " ++ t SiteStrapline) ]
+                ]
             ]
         ]
 
@@ -160,6 +165,14 @@ titleStyle : Style
 titleStyle =
     batch
         [ margin (rem 1)
+        ]
+
+
+titleLinkStyle : Style
+titleLinkStyle =
+    batch
+        [ display inlineBlock
+        , focus [ outline3 (px 2) solid white ]
         ]
 
 
