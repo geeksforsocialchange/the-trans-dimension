@@ -3,9 +3,10 @@ name: Trigger site rebuild
 # The site is statically built, so PlaceCal events only appear after a deploy.
 # This fires the Cloudflare Pages deploy hook every hour.
 
+# Disabled (#3368): transdimension.uk is now served by PlaceCal with the
+# placecal-theme-transdimension extension, so the hourly rebuild and the
+# keepalive commit are no longer needed. Manual trigger kept for reference.
 on:
-  schedule:
-    - cron: "0 * * * *"
   workflow_dispatch:
 
 jobs:
