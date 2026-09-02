@@ -7,9 +7,10 @@ name: Keep scheduled workflows alive
 # A monthly commit resets the inactivity clock for the whole repo, which keeps
 # the hourly deploy trigger running.
 
+# Disabled (#3368): transdimension.uk is now served by PlaceCal with the
+# placecal-theme-transdimension extension, so the keepalive commit is no
+# longer needed. Manual trigger kept for reference.
 on:
-  schedule:
-    - cron: "17 3 1 * *"
   workflow_dispatch:
 
 jobs:
