@@ -1,5 +1,7 @@
 # The Trans Dimension
 
+> **Archived.** transdimension.uk is now served by [PlaceCal](https://github.com/geeksforsocialchange/PlaceCal) using the [placecal-theme-transdimension](https://github.com/geeksforsocialchange/placecal-theme-transdimension) extension, which carries the theme, homepage, copy and illustrations from this repository. This Elm site is kept for history and is no longer deployed. See [PlaceCal issue #3368](https://github.com/geeksforsocialchange/PlaceCal/issues/3368).
+
 ## A [PlaceCal](https://placecal.org/) community site
 
 Front-end for [The Trans Dimension](http://transdimension.uk/), an online community hub which will connect trans communities across the UK by collating news, events and services by and for trans people in one easy-to-reach place. A collaboration between [Gendered Intelligence](https://genderedintelligence.co.uk/) and [Geeks for Social Change](https://gfsc.studio/).
